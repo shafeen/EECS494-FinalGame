@@ -1,5 +1,4 @@
 private var motor : CharacterMotor;
-public var enable = true;
 
 // Use this for initialization
 function Awake () {
@@ -29,15 +28,8 @@ function Update () {
 	}
 	
 	// Apply the direction to the CharacterMotor
-	if(enable)
-	{
-		motor.inputMoveDirection = transform.rotation * directionVector;
-		motor.inputJump = Input.GetButton("Jump");
-	}
-	else 
-	{
-		motor.inputMoveDirection = Vector3.zero;
-	}
+	motor.inputMoveDirection = transform.rotation * directionVector;
+	motor.inputJump = Input.GetButton("Jump");
 
 }
 

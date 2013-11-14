@@ -11,16 +11,17 @@ public class cutScene : MonoBehaviour {
 	private bool isColliding;
 	private float time;
 	private Quaternion focusRotation;
-	private FPSInputController fpsInput;
-	private MouseLook mouseInput;
+	private CharacterMotor charMotorInput;
+	private MouseLook mouseInputX;
+	private MouseLook mouseInputY;
 	public CUTSCENETYPES cutsceneType;
 
 	// Use this for initialization
 	void Start () {
 		isColliding = false;
-		fpsInput = GameObject.Find ("Player").GetComponent<FPSInputController>();
-		mouseInput = GameObject.Find ("Player").GetComponent<MouseLook>();
-
+		mouseInputX = GameObject.Find ("Player").GetComponent<MouseLook>();
+		mouseInputY = GameObject.Find ("Main Camera").GetComponent<MouseLook>();
+		charMotorInput = GameObject.Find("Player").GetComponent<CharacterMotor>();
 	}
 	
 	// Update is called once per frame
@@ -33,15 +34,17 @@ public class cutScene : MonoBehaviour {
 			case CUTSCENETYPES.lookAt:
 				if(Quaternion.Angle(focusRotation, player.rotation) < 5){
 					isColliding = false;
-					mouseInput.enable = true;
-					fpsInput.enable = true;
+					charMotorInput.canControl = true;
+					mouseInputX.enabled = true;
+					mouseInputY.enabled = true;
 				}
 				break;
 			case CUTSCENETYPES.timedCut:
 				if (time > cutsceneLength) {
 					isColliding = false;
-					mouseInput.enable = true;
-					fpsInput.enable = true;
+					charMotorInput.canControl = true;
+					mouseInputX.enabled = true;
+					mouseInputY.enabled = true;
 				}
 				break;
 		}
@@ -53,7 +56,8 @@ public class cutScene : MonoBehaviour {
 		Vector3 relativePos = target.position - player.position;
 		focusRotation = Quaternion.LookRotation(relativePos);
 		isColliding = true;
-		mouseInput.enable = false;
-		fpsInput.enable = false;
+		charMotorInput.canControl = false;
+		mouseInputX.enabled = false;
+		mouseInputY.enabled = false;
 	}
 }
