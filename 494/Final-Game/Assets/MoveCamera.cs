@@ -25,7 +25,7 @@ public class MoveCamera : MonoBehaviour {
 			if (time > lookTime) {
 				playerCam.transform.rotation = Quaternion.Lerp (playerCam.transform.rotation, tempObj.transform.rotation, rotMultiplier * Time.deltaTime);
 				playerCam.transform.position = Vector3.Lerp (playerCam.transform.position, tempObj.transform.position, posMultiplier * Time.deltaTime);
-				if((playerCam.transform.position - tempObj.transform.position).magnitude < 0.001){
+				if((playerCam.transform.position - tempObj.transform.position).magnitude < 0.01){
 					clicked = false;
 					fpsInput.enable = true;
 					mouseInput.enable = true;
@@ -35,11 +35,12 @@ public class MoveCamera : MonoBehaviour {
 			}
 
 			else {
-				fpsInput.enable = false;
-				mouseInput.enable = false;
-				playerCam.transform.rotation = Quaternion.Lerp (playerCam.transform.rotation, cam.transform.rotation, rotMultiplier * Time.deltaTime);
-				playerCam.transform.position = Vector3.Lerp (playerCam.transform.position, cam.transform.position, posMultiplier * Time.deltaTime);
-
+				if((playerCam.transform.position - cam.transform.position).magnitude > 0.001){
+					fpsInput.enable = false;
+					mouseInput.enable = false;
+					playerCam.transform.rotation = Quaternion.Lerp (playerCam.transform.rotation, cam.transform.rotation, rotMultiplier * Time.deltaTime);
+					playerCam.transform.position = Vector3.Lerp (playerCam.transform.position, cam.transform.position, posMultiplier * Time.deltaTime);
+				}
 			}
 		}
 	}
