@@ -44,6 +44,10 @@ public class CrystalLightScript : MonoBehaviour {
 		if (crystal_light.intensity > charge_neighbor_threshold) {
 			ChargeNeighbors();
 		}
+
+		if (crystal_light.intensity > 0) {
+			ProtectPlayer();
+		}
 		
 		// Reset at the end of every update so the flashlight has to be kept on the crystal to set this true
 		is_being_charged_by_flashlight = false;
@@ -67,5 +71,20 @@ public class CrystalLightScript : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	void ProtectPlayer() {
+
+		//Get a list of all objects within our light radius
+		Collider[] colliders = Physics.OverlapSphere(transform.position, transform.GetChild(0).GetComponent<Light>().range);
+
+		//If the player is within our light radius, protect him from baddies
+		foreach (Collider col in colliders) {
+			if (col.tag == "Player") {
+				//Notify the player that he is safe
+			}
+		}
+
+
 	}
 }
