@@ -38,13 +38,11 @@ public class MoveCamera : MonoBehaviour {
 			}
 
 			else {
-				if((playerCam.transform.position - cam.transform.position).magnitude > 0.001){
-					mouseInputY.enabled = false;
-					mouseInputX.enabled = false;
-					charMotorInput.canControl = false;
-					playerCam.transform.rotation = Quaternion.Lerp (playerCam.transform.rotation, cam.transform.rotation, rotMultiplier * Time.deltaTime);
-					playerCam.transform.position = Vector3.Lerp (playerCam.transform.position, cam.transform.position, posMultiplier * Time.deltaTime);
-				}
+				mouseInputY.enabled = false;
+				mouseInputX.enabled = false;
+				charMotorInput.canControl = false;
+				playerCam.transform.rotation = Quaternion.Lerp (playerCam.transform.rotation, cam.transform.rotation, rotMultiplier * Time.deltaTime);
+				playerCam.transform.position = Vector3.Lerp (playerCam.transform.position, cam.transform.position, posMultiplier * Time.deltaTime);
 			}
 		}
 	}

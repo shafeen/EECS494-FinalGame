@@ -9,7 +9,6 @@ function Awake () {
 function Update () {
 	// Get the input vector from keyboard or analog stick
 	var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-	
 	if (directionVector != Vector3.zero) {
 		// Get the length of the directon vector and then normalize it
 		// Dividing by the length is cheaper than normalizing when we already have the length anyway
@@ -26,7 +25,6 @@ function Update () {
 		// Multiply the normalized direction vector by the modified length
 		directionVector = directionVector * directionLength;
 	}
-	
 	// Apply the direction to the CharacterMotor
 	motor.inputMoveDirection = transform.rotation * directionVector;
 	motor.inputJump = Input.GetButton("Jump");
