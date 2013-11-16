@@ -4,7 +4,7 @@ using System.Collections;
 public class CrystalLightScript : MonoBehaviour {
 
 	private Light crystal_light;
-	public float min_light_intensity = 0;
+	private float min_light_intensity = 0.5f;
 	public static float max_light_intensity = 5;
 	public float local_max_light_intensity = 4;
 	public float light_charge_delta = 0.05f;
