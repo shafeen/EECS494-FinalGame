@@ -1,5 +1,5 @@
 private var motor : CharacterMotor;
-
+public var xbox : boolean = false;
 // Use this for initialization
 function Awake () {
 	motor = GetComponent(CharacterMotor);
@@ -8,7 +8,7 @@ function Awake () {
 // Update is called once per frame
 function Update () {
 	// Get the input vector from keyboard or analog stick
-	var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+	var directionVector = (xbox) ? new Vector3(Input.GetAxis("L_XAxis_1"), 0, Input.GetAxis("L_YAxis_1")) : new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 	if (directionVector != Vector3.zero) {
 		// Get the length of the directon vector and then normalize it
 		// Dividing by the length is cheaper than normalizing when we already have the length anyway
@@ -27,7 +27,7 @@ function Update () {
 	}
 	// Apply the direction to the CharacterMotor
 	motor.inputMoveDirection = transform.rotation * directionVector;
-	motor.inputJump = Input.GetButton("Jump");
+	motor.inputJump = (xbox) ? Input.GetButton("Y_1") : Input.GetButton("Jump");
 
 }
 

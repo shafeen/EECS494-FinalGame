@@ -32,7 +32,7 @@ public class cutScene : MonoBehaviour {
 		}
 		switch (cutsceneType) {
 			case CUTSCENETYPES.lookAt:
-				if(Quaternion.Angle(focusRotation, player.rotation) < 5){
+				if(Quaternion.Angle(focusRotation, player.rotation) < 15){
 					isColliding = false;
 					charMotorInput.canControl = true;
 					mouseInputX.enabled = true;

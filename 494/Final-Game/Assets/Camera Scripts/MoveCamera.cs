@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MoveCamera : MonoBehaviour {
 	public GameObject cam;
+	public bool xbox = false;
 	private float time;
 	public GameObject playerCam;
 	public int posMultiplier;
@@ -13,6 +14,9 @@ public class MoveCamera : MonoBehaviour {
 	private MouseLook mouseInputY;
 	private CharacterMotor charMotorInput;
 	private MouseLook mouseInputX;
+	private Vector3 fwd;
+	private RaycastHit hit;
+	public float activateDistance = 15;
 	// Use this for initialization
 	void Start () {
 		mouseInputX = GameObject.Find ("Player").GetComponent<MouseLook>();
@@ -22,6 +26,13 @@ public class MoveCamera : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		fwd = playerCam.transform.TransformDirection(Vector3.forward);
+		if((xbox) ? Input.GetButtonDown("A_1") : Input.GetMouseButtonDown(0)){
+			Physics.Raycast(playerCam.transform.position, fwd, out hit, activateDistance);
+			if(hit.collider.tag == "focusObject"){
+				activate();
+			}
+		}
 		time += Time.deltaTime;
 		if (clicked) {
 			if (time > lookTime) {
@@ -46,7 +57,7 @@ public class MoveCamera : MonoBehaviour {
 			}
 		}
 	}
-	void OnMouseDown() {
+	void activate() {
 		clicked = true;
 		time = 0;
 		tempObj.transform.position = playerCam.transform.position;
