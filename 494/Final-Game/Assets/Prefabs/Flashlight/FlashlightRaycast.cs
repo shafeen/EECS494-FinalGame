@@ -14,8 +14,8 @@ public class FlashlightRaycast : MonoBehaviour {
 		RaycastHit hit;
 		Ray lightRay = new Ray(transform.position, transform.forward);
 
-		for (float i = -0.11f; i < 0.11f; i += 0.05f) {
-			for (float j = -0.11f; j < 0.11f; j += 0.05f) {
+		for (float i = -0.13f; i < 0.13f; i += 0.05f) {
+			for (float j = -0.13f; j < 0.13f; j += 0.05f) {
 				offset = new Vector3(transform.forward.x + i, transform.forward.y + j, transform.forward.z);
 				Debug.DrawRay(transform.position, offset * ray_range);
 				lightRay = new Ray(transform.position, offset);
