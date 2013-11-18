@@ -21,7 +21,7 @@ public class PushCart : MonoBehaviour {
 			GetComponent<MouseLook>().sensitivityY = 15.0f;
 			GetComponent<CharacterMotor>().enabled = true;
 			GetComponent<CharacterMotor>().canControl = true;
-			GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityX = 10.0f;
+			GameObject.FindWithTag("Player_Cam").GetComponent<MouseLook>().sensitivityX = 10.0f;
 			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 10.0f;
 		}
 		else if(Physics.Raycast(transform.position, fwd, out hit, attachRange)) {
@@ -53,7 +53,7 @@ public class PushCart : MonoBehaviour {
 			GetComponent<MouseLook>().sensitivityY = 0.0f;
 			GetComponent<CharacterMotor>().enabled = false;
 			GetComponent<CharacterMotor>().canControl = false;
-			GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityX = 0.0f;
+			GameObject.FindWithTag("Player_Cam").GetComponent<MouseLook>().sensitivityX = 0.0f;
 			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 0.0f;
 		}
 	}

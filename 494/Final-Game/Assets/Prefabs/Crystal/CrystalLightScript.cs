@@ -45,7 +45,7 @@ public class CrystalLightScript : MonoBehaviour {
 			ChargeNeighbors();
 		}
 
-		if (crystal_light.intensity > 0) {
+		if (crystal_light.intensity > min_light_intensity) {
 			ProtectPlayer();
 		}
 		
@@ -82,6 +82,10 @@ public class CrystalLightScript : MonoBehaviour {
 		foreach (Collider col in colliders) {
 			if (col.tag == "Player") {
 				//Notify the player that he is safe
+				TerrorScript terror = col.transform.GetComponent<TerrorScript>();
+				if (terror) {
+					terror.ResetTerror();
+				}
 			}
 		}
 
