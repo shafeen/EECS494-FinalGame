@@ -13,15 +13,28 @@ public class CrystalLightScript : MonoBehaviour {
 	private float neighbor_charge_step = 0.20f;
 	public bool is_being_charged_by_flashlight = false;
 	public bool is_being_charged_by_radiance = false;
-
+	private bool safe = true;
+	private CaveChecker caveChecker;
+	private RespawnTimer respawn;
 	// Use this for initialization
 	void Start () {
 		crystal_light = transform.GetChild(0).GetComponent<Light>();
+		respawn = GameObject.FindWithTag("Player").GetComponent<RespawnTimer>();
+		caveChecker = GameObject.FindWithTag("caveTrigger").GetComponent<CaveChecker>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		print(caveChecker.inCave);
+		if(caveChecker.inCave) {
+			safe = false;
+			print("unsafe");
+		}
+		else {
+			safe = true;
+			print("safe");
+
+		}
 		//The only difference between being charged by the flashlight and by another crystal, is that
 		//the flashlight will reset your max brightness to the full allowed
 		//local max brightness is how bright a particular crystal is allowed to be
@@ -82,13 +95,16 @@ public class CrystalLightScript : MonoBehaviour {
 		foreach (Collider col in colliders) {
 			if (col.tag == "Player") {
 				//Notify the player that he is safe
-				TerrorScript terror = col.transform.GetComponent<TerrorScript>();
-				if (terror) {
-					terror.ResetTerror();
-				}
+				safe = true;
 			}
 		}
-
+		if(!safe){
+			respawn.startTimer();
+		}
+		else {
+			respawn.stopTimer();
+			respawn.resetTimer();
+		}
 
 	}
 }

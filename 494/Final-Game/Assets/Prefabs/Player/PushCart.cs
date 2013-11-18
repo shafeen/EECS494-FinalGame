@@ -8,7 +8,6 @@ public class PushCart : MonoBehaviour {
 	private Vector3 fwd;
 	private Vector3 fwdC;
 	public float attachRange = 1;
-	public bool xbox = false;
 	private GameObject cart;
 	void cartCheck(){
 		if(attached){
@@ -42,7 +41,7 @@ public class PushCart : MonoBehaviour {
 		Debug.DrawRay(transform.position, fwd, Color.red, 0.0f, false);
 		Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*20, Color.red, 0.0f, false);
 		//Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*-20, Color.red, 0.0f, false);
-		if((xbox) ? Input.GetButtonDown("A_1") : Input.GetMouseButtonDown(0)) {
+		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
 			cartCheck();
 		}
 		if(attached){
