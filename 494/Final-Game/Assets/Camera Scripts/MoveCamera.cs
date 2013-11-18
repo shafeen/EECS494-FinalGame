@@ -3,68 +3,78 @@ using System.Collections;
 
 public class MoveCamera : MonoBehaviour {
 
-	public GameObject cam;
-	public bool xbox = false;
+	public enum TransitionType {
+		SCENE_CHANGE,
+		INSPECT }
+
+	public TransitionType transition_type;
+
 	public string newLevel;
 
 	private GameObject object_cam;
-	//private Transform player_position;
-
-	private float time;
 	private GameObject player;
 	private GameObject player_cam;
+	private GameObject player_position;
+	private float time;
+	private bool clicked = false;
+	private bool activated = false;
 
 	public int posMultiplier;
 	public int rotMultiplier;
 	public float lookTime;
-
-	private bool clicked = false;
-	private GameObject tempObj;
-	private MouseLook mouseInputY;
-	private CharacterMotor charMotorInput;
-	private MouseLook mouseInputX;
 	private Vector3 fwd;
 	private RaycastHit hit;
 	public float activateDistance = 15;
 
 	// Use this for initialization
 	void Start () {
-//		mouseInputX = GameObject.Find ("Player").GetComponent<MouseLook>();
-//		mouseInputY = GameObject.Find ("Main Camera").GetComponent<MouseLook>();
-//		charMotorInput = GameObject.Find("Player").GetComponent<CharacterMotor>();
 		player = GameObject.Find ("Player");
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 		object_cam = transform.FindChild("Object_Cam").gameObject;
-		//player_position = player.transform.FindChild("Player_Cam").gameObject.transform;
+		player_position = player.transform.FindChild("Player_Cam_Position").gameObject;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		fwd = player_cam.transform.forward;
-		Debug.DrawRay(player_cam.transform.position, 15*fwd, Color.red, 0.0f, false);
-		if((xbox) ? Input.GetButtonDown("A_1") : Input.GetMouseButtonDown(0)){
-			Physics.Raycast(player_cam.transform.position, fwd, out hit, activateDistance);
-			if(hit.collider.tag == "focusObject"){
-				activate();
-			}
+		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)){
+			Debug.Log("Clicking");
+			click();
 		}
+
 		if (clicked) {
 			time += Time.deltaTime;
 			if (time > lookTime) {
-				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, tempObj.transform.rotation, rotMultiplier * Time.deltaTime);
-				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, tempObj.transform.position, posMultiplier * Time.deltaTime);
-				if(newLevel!=null && (player_cam.transform.position - object_cam.transform.position).magnitude < 1.8) {
-					Application.LoadLevel(newLevel);
+
+				switch (transition_type) {
+
+					case (TransitionType.SCENE_CHANGE): {
+						if(newLevel!=null) {
+							Application.LoadLevel(newLevel);
+						}
+						break;
+					}
+					case (TransitionType.INSPECT): {
+						player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, player_position.transform.rotation, rotMultiplier * Time.deltaTime);
+						player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, player_position.transform.position, posMultiplier * Time.deltaTime);
+						
+						if((player_cam.transform.position - player_position.transform.position).magnitude < 0.01){
+							clicked = false;
+							player.GetComponent<MouseLook>().enabled = true;
+							player_cam.GetComponent<MouseLook>().enabled = true;
+							player.GetComponent<CharacterMotor>().canControl = true;
+							player.GetComponent<FPSInputController>().enabled = true;
+							player_cam.transform.position = player_position.transform.position;
+							player_cam.transform.rotation = player_position.transform.rotation;
+						}
+						break;
+					}
+
+					default:
+
+						break;
+
 				}
-				if((player_cam.transform.position - tempObj.transform.position).magnitude < 0.8){
-					clicked = false;
-					player.GetComponent<MouseLook>().enabled = true;
-					player_cam.GetComponent<MouseLook>().enabled = true;
-					player.GetComponent<CharacterMotor>().canControl = true;
-					player.GetComponent<FPSInputController>().enabled = true;
-					player_cam.transform.position = tempObj.transform.position;
-					player_cam.transform.rotation = tempObj.transform.rotation;
-				}
+
 			}
 
 			else {
@@ -76,12 +86,19 @@ public class MoveCamera : MonoBehaviour {
 				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, object_cam.transform.position, posMultiplier * Time.deltaTime);
 			}
 		}
+
+		activated = false;
 	}
-	void activate() {
-		clicked = true;
-		tempObj = new GameObject();
-		tempObj.transform.position = player.transform.position;
-		tempObj.transform.rotation = player.transform.rotation;
-		time = 0;
+
+	public void activate() {
+		//Use this function to make object glow or change color to indicate that it is selected
+		activated = true;
+	}
+
+	void click() {
+		if (activated) {
+			clicked = true;
+			time = 0;
+		}
 	}
 }
