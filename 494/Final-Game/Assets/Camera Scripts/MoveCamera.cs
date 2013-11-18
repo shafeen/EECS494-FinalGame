@@ -5,9 +5,10 @@ public class MoveCamera : MonoBehaviour {
 
 	public GameObject cam;
 	public bool xbox = false;
+	public string newLevel;
 
 	private GameObject object_cam;
-	private Transform player_position;
+	//private Transform player_position;
 
 	private float time;
 	private GameObject player;
@@ -18,7 +19,7 @@ public class MoveCamera : MonoBehaviour {
 	public float lookTime;
 
 	private bool clicked = false;
-	public GameObject tempObj;
+	private GameObject tempObj;
 	private MouseLook mouseInputY;
 	private CharacterMotor charMotorInput;
 	private MouseLook mouseInputX;
@@ -34,7 +35,7 @@ public class MoveCamera : MonoBehaviour {
 		player = GameObject.Find ("Player");
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 		object_cam = transform.FindChild("Object_Cam").gameObject;
-		player_position = player.transform.FindChild("Player_Cam").gameObject.transform;
+		//player_position = player.transform.FindChild("Player_Cam").gameObject.transform;
 	}
 
 	// Update is called once per frame
@@ -52,8 +53,10 @@ public class MoveCamera : MonoBehaviour {
 			if (time > lookTime) {
 				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, tempObj.transform.rotation, rotMultiplier * Time.deltaTime);
 				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, tempObj.transform.position, posMultiplier * Time.deltaTime);
-				print((player_cam.transform.position - tempObj.transform.position).magnitude);
-				if((player_cam.transform.position - tempObj.transform.position).magnitude < 1){
+				if(newLevel!=null && (player_cam.transform.position - object_cam.transform.position).magnitude < 1.8) {
+					Application.LoadLevel(newLevel);
+				}
+				if((player_cam.transform.position - tempObj.transform.position).magnitude < 0.8){
 					clicked = false;
 					player.GetComponent<MouseLook>().enabled = true;
 					player_cam.GetComponent<MouseLook>().enabled = true;
