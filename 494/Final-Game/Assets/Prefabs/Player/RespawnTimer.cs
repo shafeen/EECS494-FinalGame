@@ -11,7 +11,6 @@ public class RespawnTimer : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		print((time));
 
 		if(run){
 			time += Time.deltaTime;
