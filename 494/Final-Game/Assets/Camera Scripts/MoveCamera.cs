@@ -12,6 +12,7 @@ public class MoveCamera : MonoBehaviour {
 	public string newLevel;
 
 	private GameObject object_cam;
+	private GameObject object_highlight;
 	private GameObject player;
 	private GameObject player_cam;
 	private GameObject player_position;
@@ -32,10 +33,17 @@ public class MoveCamera : MonoBehaviour {
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 		object_cam = transform.FindChild("Object_Cam").gameObject;
 		player_position = player.transform.FindChild("Player_Cam_Position").gameObject;
+		object_highlight = transform.FindChild("Object_Highlight").gameObject;
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if (activated) {
+			object_highlight.GetComponent<Light>().enabled = true;
+		} else {
+			object_highlight.GetComponent<Light>().enabled = false;
+		}
+
 		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)){
 			Debug.Log("Clicking");
 			click();

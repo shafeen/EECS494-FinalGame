@@ -36,10 +36,10 @@ public class PushCart : MonoBehaviour {
 	}
 
 	void Update(){
-		fwd = transform.TransformDirection(Vector3.forward);
-		fwdC = GameObject.FindWithTag("cart").transform.TransformDirection(Vector3.forward);
-		Debug.DrawRay(transform.position, fwd, Color.red, 0.0f, false);
-		Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*20, Color.red, 0.0f, false);
+//		fwd = transform.TransformDirection(Vector3.forward);
+//		fwdC = GameObject.FindWithTag("cart").transform.TransformDirection(Vector3.forward);
+//		Debug.DrawRay(transform.position, fwd, Color.red, 0.0f, false);
+//		Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*20, Color.red, 0.0f, false);
 		//Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*-20, Color.red, 0.0f, false);
 		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
 			cartCheck();
