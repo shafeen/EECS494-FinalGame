@@ -46,7 +46,7 @@ public class SFXFadeInOut : MonoBehaviour
 		if(fadeIn) 
 		{
 			Debug.Log("SFX Fading In!");
-
+			Debug.Log(fadeSpeed);
 			if(soundSrcObj.audio.volume < finalVolume)
 				soundSrcObj.audio.volume += fadeSpeed;
 			else
@@ -66,6 +66,7 @@ public class SFXFadeInOut : MonoBehaviour
 		if(fadeOut) 
 		{
 			Debug.Log("SFX Fading Out!");
+			Debug.Log(fadeSpeed);
 
 			if(soundSrcObj.audio.volume <= 0.0f)
 				soundSrcObj.audio.volume -= fadeSpeed;
@@ -79,7 +80,7 @@ public class SFXFadeInOut : MonoBehaviour
 	}
 	
 	
-	void OnTriggerEnter(Collider other)
+	/*void OnTriggerEnter(Collider other)
 	{
 		// Do nothing if this has already been triggered
 		if (soundSrcObj.audio.isPlaying)
@@ -98,7 +99,7 @@ public class SFXFadeInOut : MonoBehaviour
 			fadeSFX = false; // to prevent being triggered twice
 		}
 
-	}
+	}*/
 
 
 	// This property FORCES a fade out!
