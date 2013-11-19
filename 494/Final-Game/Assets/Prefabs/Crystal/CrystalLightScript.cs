@@ -57,7 +57,7 @@ public class CrystalLightScript : MonoBehaviour {
 		}
 
 		if (crystal_light.intensity > min_light_intensity) {
-			ProtectPlayer();
+			//transform.GetComponent<ProtectPlayer>().ProtectPlayer();
 		}
 		
 		// Reset at the end of every update so the flashlight has to be kept on the crystal to set this true

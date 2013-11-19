@@ -22,7 +22,7 @@ public class ProtectPlayerLight : MonoBehaviour {
 		foreach (Collider col in colliders) {
 			if (col.tag == "Player") {
 				//Notify the player that he is safe
-				respawn.resetTimer();
+				col.transform.GetComponent<RespawnTimer>().resetTimer();
 			}
 		}
 		
