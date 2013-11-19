@@ -20,7 +20,7 @@ public class PushCart : MonoBehaviour {
 			GetComponent<MouseLook>().sensitivityY = 15.0f;
 			GetComponent<CharacterMotor>().enabled = true;
 			GetComponent<CharacterMotor>().canControl = true;
-			GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityX = 10.0f;
+			GameObject.FindWithTag("Player_Cam").GetComponent<MouseLook>().sensitivityX = 10.0f;
 			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 10.0f;
 		}
 		else if(Physics.Raycast(transform.position, fwd, out hit, attachRange)) {
@@ -36,10 +36,10 @@ public class PushCart : MonoBehaviour {
 	}
 
 	void Update(){
-		fwd = transform.TransformDirection(Vector3.forward);
-		fwdC = GameObject.FindWithTag("cart").transform.TransformDirection(Vector3.forward);
-		Debug.DrawRay(transform.position, fwd, Color.red, 0.0f, false);
-		Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*20, Color.red, 0.0f, false);
+//		fwd = transform.TransformDirection(Vector3.forward);
+//		fwdC = GameObject.FindWithTag("cart").transform.TransformDirection(Vector3.forward);
+//		Debug.DrawRay(transform.position, fwd, Color.red, 0.0f, false);
+//		Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*20, Color.red, 0.0f, false);
 		//Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*-20, Color.red, 0.0f, false);
 		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
 			cartCheck();
@@ -52,7 +52,7 @@ public class PushCart : MonoBehaviour {
 			GetComponent<MouseLook>().sensitivityY = 0.0f;
 			GetComponent<CharacterMotor>().enabled = false;
 			GetComponent<CharacterMotor>().canControl = false;
-			GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityX = 0.0f;
+			GameObject.FindWithTag("Player_Cam").GetComponent<MouseLook>().sensitivityX = 0.0f;
 			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 0.0f;
 		}
 	}

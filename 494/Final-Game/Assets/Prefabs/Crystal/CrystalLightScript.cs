@@ -25,16 +25,16 @@ public class CrystalLightScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		print(caveChecker.inCave);
-		if(caveChecker.inCave) {
-			safe = false;
-			print("unsafe");
-		}
-		else {
-			safe = true;
-			print("safe");
-
-		}
+//		print(caveChecker.inCave);
+//		if(caveChecker.inCave) {
+//			safe = false;
+//			print("unsafe");
+//		}
+//		else {
+//			safe = true;
+//			print("safe");
+//
+//		}
 		//The only difference between being charged by the flashlight and by another crystal, is that
 		//the flashlight will reset your max brightness to the full allowed
 		//local max brightness is how bright a particular crystal is allowed to be
@@ -50,6 +50,7 @@ public class CrystalLightScript : MonoBehaviour {
 			}
 		} else {
 			if (crystal_light.intensity > min_light_intensity) {
+				Debug.Log("Discharging light");
 				crystal_light.intensity -= light_discharge_delta;
 			}
 		}
@@ -58,7 +59,7 @@ public class CrystalLightScript : MonoBehaviour {
 			ChargeNeighbors();
 		}
 
-		if (crystal_light.intensity > 0) {
+		if (crystal_light.intensity > min_light_intensity) {
 			ProtectPlayer();
 		}
 		
