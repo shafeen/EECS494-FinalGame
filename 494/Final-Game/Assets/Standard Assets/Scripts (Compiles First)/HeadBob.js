@@ -11,8 +11,8 @@ function Start () {
 
  function Update () { 
     var sinTime = 0.0; 
-    var horizontal = Mathf.Abs(Input.GetAxis("Horizontal"));
-    var vertical = Mathf.Abs(Input.GetAxis("Vertical"));
+    var horizontal = Mathf.Abs(Mathf.Clamp(Input.GetAxis("L_XAxis_1") + Input.GetAxis("Horizontal"), -1, 1));
+    var vertical = Mathf.Abs(Mathf.Clamp(Input.GetAxis("L_YAxis_1") + Input.GetAxis("Vertical"), -1,1));
     if (horizontal == 0 && vertical == 0){timer = 0.0;} 
     else { 
        sinTime = Mathf.Sin(timer); 

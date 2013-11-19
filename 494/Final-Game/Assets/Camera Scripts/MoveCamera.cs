@@ -10,10 +10,10 @@ public class MoveCamera : MonoBehaviour {
 	public TransitionType transition_type;
 
 	public string newLevel;
+	private GameObject player_cam;
 
 	private GameObject object_cam;
 	private GameObject player;
-	private GameObject player_cam;
 	private GameObject player_position;
 	private float time;
 	private bool clicked = false;
@@ -49,7 +49,7 @@ public class MoveCamera : MonoBehaviour {
 
 					case (TransitionType.SCENE_CHANGE): {
 						if(newLevel!=null) {
-							//player_cam.GetComponent<HeadBob>().enabled = true;
+							player_cam.GetComponent<HeadBob>().enabled = true;
 							Application.LoadLevel(newLevel);
 						}
 						break;
@@ -66,7 +66,7 @@ public class MoveCamera : MonoBehaviour {
 							player.GetComponent<FPSInputController>().enabled = true;
 							player_cam.transform.position = player_position.transform.position;
 							player_cam.transform.rotation = player_position.transform.rotation;
-							//player_cam.GetComponent<HeadBob>().enabled = true;
+							player_cam.GetComponent<HeadBob>().enabled = true;
 						}
 						break;
 					}
@@ -84,7 +84,7 @@ public class MoveCamera : MonoBehaviour {
 				player_cam.GetComponent<MouseLook>().enabled = false;
 				player.GetComponent<CharacterMotor>().canControl = false;
 				player.GetComponent<FPSInputController>().enabled = false;
-				//player_cam.GetComponent<HeadBob>().enabled = false;
+				player_cam.GetComponent<HeadBob>().enabled = false;
 				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, object_cam.transform.rotation, rotMultiplier * Time.deltaTime);
 				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, object_cam.transform.position, posMultiplier * Time.deltaTime);
 			}
