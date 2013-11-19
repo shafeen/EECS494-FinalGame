@@ -17,7 +17,6 @@ public class PushCart : MonoBehaviour {
 
 	void cartCheck(){
 		if(attached){
-			print("GOTHEEM3");
 			attached = false;
 			player.transform.parent = null;
 			GetComponent<MouseLook>().enabled = false;
@@ -31,11 +30,8 @@ public class PushCart : MonoBehaviour {
 			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 10.0f;
 		}
 		else if(Physics.Raycast(player.transform.position, fwd, out hit, attachRange)) {
-			print("GOTHEEM2");
 			if(hit.collider.gameObject.tag == "cart") {
-				print("GOTHEEM2.1");
 				if(Vector3.Angle(fwd,fwdC) < 5){
-					print("GOTHEEM2.2");
 					attached = true;
 					transform.rotation = player.transform.rotation;
 					player.transform.parent = transform;
@@ -50,7 +46,6 @@ public class PushCart : MonoBehaviour {
 		Debug.DrawRay(player.transform.position, fwd, Color.red, 0.0f, false);
 		Debug.DrawRay(transform.position, fwdC*20, Color.red, 0.0f, false);
 		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
-			print("GOTHEEM1");
 			cartCheck();
 		}
 		if(attached){
