@@ -8,51 +8,55 @@ public class PushCart : MonoBehaviour {
 	private Vector3 fwd;
 	private Vector3 fwdC;
 	public float attachRange = 1;
-	private GameObject cart;
+	private GameObject player;
+	private GameObject player_cam;
+	void Start() {
+		player = GameObject.Find("Player");
+		player_cam = GameObject.Find("Player/Player_Cam");
+	}
+
 	void cartCheck(){
 		if(attached){
 			attached = false;
-			transform.parent = null;
-			cart.GetComponent<MouseLook>().enabled = false;
-			cart.GetComponent<CharacterMotor>().enabled = false;
-			cart.GetComponent<CharacterMotor>().canControl = false;
-			GetComponent<MouseLook>().sensitivityX = 15.0f;
-			GetComponent<MouseLook>().sensitivityY = 15.0f;
-			GetComponent<CharacterMotor>().enabled = true;
-			GetComponent<CharacterMotor>().canControl = true;
-			GameObject.FindWithTag("Player_Cam").GetComponent<MouseLook>().sensitivityX = 10.0f;
+			player.transform.parent = null;
+			GetComponent<MouseLook>().enabled = false;
+			GetComponent<CharacterMotor>().enabled = false;
+			GetComponent<CharacterMotor>().canControl = false;
+			player.GetComponent<MouseLook>().sensitivityX = 15.0f;
+			player.GetComponent<MouseLook>().sensitivityY = 15.0f;
+			player.GetComponent<CharacterMotor>().enabled = true;
+			player.GetComponent<CharacterMotor>().canControl = true;
+			player_cam.GetComponent<MouseLook>().sensitivityX = 10.0f;
 			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 10.0f;
 		}
-		else if(Physics.Raycast(transform.position, fwd, out hit, attachRange)) {
+		else if(Physics.Raycast(player.transform.position, fwd, out hit, attachRange)) {
 			if(hit.collider.gameObject.tag == "cart") {
 				if(Vector3.Angle(fwd,fwdC) < 5){
 					attached = true;
-					cart = hit.collider.gameObject;
-					cart.transform.rotation = transform.rotation;
-					transform.parent = cart.transform;
+					transform.rotation = player.transform.rotation;
+					player.transform.parent = transform;
 				}
 			}
 		}
 	}
 
 	void Update(){
-//		fwd = transform.TransformDirection(Vector3.forward);
-//		fwdC = GameObject.FindWithTag("cart").transform.TransformDirection(Vector3.forward);
-//		Debug.DrawRay(transform.position, fwd, Color.red, 0.0f, false);
-//		Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*20, Color.red, 0.0f, false);
-		//Debug.DrawRay(GameObject.FindWithTag("cart").transform.position, fwdC*-20, Color.red, 0.0f, false);
+		fwd = player.transform.TransformDirection(Vector3.forward);
+		fwdC = transform.TransformDirection(Vector3.forward);
+		Debug.DrawRay(player.transform.position, fwd, Color.red, 0.0f, false);
+		Debug.DrawRay(transform.position, fwdC*20, Color.red, 0.0f, false);
 		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
 			cartCheck();
 		}
 		if(attached){
-			cart.GetComponent<MouseLook>().enabled = true;
-			cart.GetComponent<CharacterMotor>().enabled = true;
-			cart.GetComponent<CharacterMotor>().canControl = true;
-			GetComponent<MouseLook>().sensitivityX = 0.0f;
-			GetComponent<MouseLook>().sensitivityY = 0.0f;
-			GetComponent<CharacterMotor>().enabled = false;
-			GetComponent<CharacterMotor>().canControl = false;
-			GameObject.FindWithTag("Player_Cam").GetComponent<MouseLook>().sensitivityX = 0.0f;
+			GetComponent<MouseLook>().enabled = true;
+			GetComponent<CharacterMotor>().enabled = true;
+			GetComponent<CharacterMotor>().canControl = true;
+			player.GetComponent<MouseLook>().sensitivityX = 0.0f;
+			player.GetComponent<MouseLook>().sensitivityY = 0.0f;
+			player.GetComponent<CharacterMotor>().enabled = false;
+			player.GetComponent<CharacterMotor>().canControl = false;
+			player_cam.GetComponent<MouseLook>().sensitivityX = 0.0f;
 			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 0.0f;
 		}
 	}

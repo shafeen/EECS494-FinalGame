@@ -1,47 +1,55 @@
 fileFormatVersion: 2
-guid: e369451e9de48f34baeaadfcd1068d60
+guid: 86d1a3c3b42c68942b5f04aaed6d61c7
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: BedroomDoor
-    100004: BedroomWalls
-    100006: ClosetDoor
-    100008: Grid001
-    100010: PlayTable
-    100012: WindowLeft
-    100014: WindowRight
-    100016: Drawing
-    400000: //RootNode
-    400002: BedroomDoor
-    400004: BedroomWalls
-    400006: ClosetDoor
-    400008: Grid001
-    400010: PlayTable
-    400012: WindowLeft
-    400014: WindowRight
-    400016: Drawing
+    100000: BedroomDoor
+    100002: BedroomDoorFrame
+    100004: //RootNode
+    100006: BedroomWalls
+    100008: ClosetDoor
+    100010: ClosetDoorFrame
+    100012: Drawing
+    100014: PlayTable
+    100016: WindowLeft
+    100018: WindowRight
+    400000: BedroomDoor
+    400002: BedroomDoorFrame
+    400004: //RootNode
+    400006: BedroomWalls
+    400008: ClosetDoor
+    400010: ClosetDoorFrame
+    400012: Drawing
+    400014: PlayTable
+    400016: WindowLeft
+    400018: WindowRight
     2300000: BedroomDoor
-    2300002: BedroomWalls
-    2300004: ClosetDoor
-    2300006: PlayTable
-    2300008: WindowLeft
-    2300010: WindowRight
-    2300012: Drawing
+    2300002: BedroomDoorFrame
+    2300004: BedroomWalls
+    2300006: ClosetDoor
+    2300008: ClosetDoorFrame
+    2300010: Drawing
+    2300012: PlayTable
+    2300014: WindowLeft
+    2300016: WindowRight
     3300000: BedroomDoor
-    3300002: BedroomWalls
-    3300004: ClosetDoor
-    3300006: PlayTable
-    3300008: WindowLeft
-    3300010: WindowRight
-    3300012: Drawing
+    3300002: BedroomDoorFrame
+    3300004: BedroomWalls
+    3300006: ClosetDoor
+    3300008: ClosetDoorFrame
+    3300010: Drawing
+    3300012: PlayTable
+    3300014: WindowLeft
+    3300016: WindowRight
     4300000: BedroomWalls
-    4300002: ClosetDoor
-    4300004: BedroomDoor
+    4300002: ClosetDoorFrame
+    4300004: BedroomDoorFrame
     4300006: WindowRight
     4300008: WindowLeft
     4300010: PlayTable
     4300012: Drawing
+    4300014: ClosetDoor
+    4300016: BedroomDoor
     9500000: //RootNode
   materials:
     importMaterials: 1
