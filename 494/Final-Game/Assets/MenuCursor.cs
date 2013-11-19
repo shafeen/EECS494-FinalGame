@@ -19,7 +19,6 @@ public class MenuCursor : MonoBehaviour {
 		position.x += deltaX;
 		position.y -= deltaY;
 		Screen.showCursor = false;
-		print(sensitivity);
 	}
 	void OnGUI()
 	{

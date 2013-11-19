@@ -31,16 +31,7 @@ public class SFXFadeInOut : MonoBehaviour
 	// NOTE: This overrides UI settings of publics
 	void Start () 
 	{
-		loopSFX = true; // this will override user UI setting!
-		fadeSFX = true;
-
-		fadeIn  = false;
-		fadeOut = false;
-		stopSFX = false;
-
-		audioClipLength = soundSrcObj.audio.clip.length;
-		fadeOutStartTime = fadeOutAtClip * audioClipLength; // fade out starts here
-		soundSrcObj.audio.loop = loopSFX;
+		initState ();
 	}
 
 
@@ -123,6 +114,47 @@ public class SFXFadeInOut : MonoBehaviour
 		get{ return stopSFX;}
 	}
 
+	public bool StartSFX
+	{
+		set
+		{ 
+			// if this has already been triggered
+			if (soundSrcObj.audio.isPlaying)
+			{
+				soundSrcObj.audio.Stop (); // pretty abrupt
+				initState();
+			}
+			Debug.Log("Sound Cued!!\n");
+			
+			soundSrcObj.audio.volume = initialVolume;
+			soundSrcObj.audio.Play ();
+			
+			
+			// Fade logic
+			if (fadeSFX == true) 
+			{
+				fadeIn = true;
+				fadeSFX = false; // to prevent being triggered twice
+			}
+		}
+	}
+
+
+
+	// Resets everything to the initial state
+	void initState()
+	{
+		loopSFX = true; // this will override user UI setting!
+		fadeSFX = true;
+		
+		fadeIn  = false;
+		fadeOut = false;
+		stopSFX = false;
+		
+		audioClipLength = soundSrcObj.audio.clip.length;
+		fadeOutStartTime = fadeOutAtClip * audioClipLength; // fade out starts here
+		soundSrcObj.audio.loop = loopSFX;
+	}
 
 	void fadeInSound()
 	{

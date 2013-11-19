@@ -30,8 +30,8 @@ public class PushCart : MonoBehaviour {
 			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 10.0f;
 		}
 		else if(Physics.Raycast(player.transform.position, fwd, out hit, attachRange)) {
-			if(hit.collider.gameObject.tag == "cart") {
-				if(Vector3.Angle(fwd,fwdC) < 5){
+			if(hit.collider.gameObject.name == "Minecart") {
+				if(Vector3.Angle(fwd,fwdC) < 8){
 					attached = true;
 					transform.rotation = player.transform.rotation;
 					player.transform.parent = transform;
