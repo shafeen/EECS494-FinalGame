@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CheckInspectRange : MonoBehaviour {
-	public float ray_range;
+	private float ray_range = 3.0f;
 	// Use this for initialization
 	void Start () {
 	
