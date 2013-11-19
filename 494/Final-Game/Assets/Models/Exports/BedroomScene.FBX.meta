@@ -13,6 +13,12 @@ ModelImporter:
     100014: PlayTable
     100016: WindowLeft
     100018: WindowRight
+    100020: BedroomFrame
+    100022: Bookcase
+    100024: Clock
+    100026: Flashlight
+    100028: Ceiling
+    100030: Walls
     400000: BedroomDoor
     400002: BedroomDoorFrame
     400004: //RootNode
@@ -23,6 +29,12 @@ ModelImporter:
     400014: PlayTable
     400016: WindowLeft
     400018: WindowRight
+    400020: BedroomFrame
+    400022: Bookcase
+    400024: Clock
+    400026: Flashlight
+    400028: Ceiling
+    400030: Walls
     2300000: BedroomDoor
     2300002: BedroomDoorFrame
     2300004: BedroomWalls
@@ -32,6 +44,12 @@ ModelImporter:
     2300012: PlayTable
     2300014: WindowLeft
     2300016: WindowRight
+    2300018: BedroomFrame
+    2300020: Bookcase
+    2300022: Clock
+    2300024: Flashlight
+    2300026: Ceiling
+    2300028: Walls
     3300000: BedroomDoor
     3300002: BedroomDoorFrame
     3300004: BedroomWalls
@@ -41,6 +59,12 @@ ModelImporter:
     3300012: PlayTable
     3300014: WindowLeft
     3300016: WindowRight
+    3300018: BedroomFrame
+    3300020: Bookcase
+    3300022: Clock
+    3300024: Flashlight
+    3300026: Ceiling
+    3300028: Walls
     4300000: BedroomWalls
     4300002: ClosetDoorFrame
     4300004: BedroomDoorFrame
@@ -50,6 +74,13 @@ ModelImporter:
     4300012: Drawing
     4300014: ClosetDoor
     4300016: BedroomDoor
+    4300018: BedroomFrame
+    4300020: Bookcase
+    4300022: Flashlight
+    4300024: Clock
+    4300026: Walls
+    4300028: Ceiling
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
