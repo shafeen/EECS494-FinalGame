@@ -17,6 +17,9 @@ public class PushCart : MonoBehaviour {
 
 	void cartCheck(){
 		if(attached){
+			GameObject.Find("Player/Player_Cam/Flashlight").GetComponent<Light>().enabled = true;
+			//GetComponent<SFXFadeInOut>().StopSFX = true;
+			audio.Stop();
 			attached = false;
 			player.transform.parent = null;
 			GetComponent<MouseLook>().enabled = false;
@@ -27,12 +30,13 @@ public class PushCart : MonoBehaviour {
 			player.GetComponent<CharacterMotor>().enabled = true;
 			player.GetComponent<CharacterMotor>().canControl = true;
 			player_cam.GetComponent<MouseLook>().sensitivityX = 10.0f;
-			//GameObject.FindWithTag("MainCamera").GetComponent<MouseLook>().sensitivityY = 10.0f;
 		}
 		else if(Physics.Raycast(player.transform.position, fwd, out hit, attachRange)) {
 			if(hit.collider.gameObject.name == "Minecart") {
 				if(Vector3.Angle(fwd,fwdC) < 8){
 					attached = true;
+					audio.Play();
+					audio.loop = true;
 					transform.rotation = player.transform.rotation;
 					player.transform.parent = transform;
 				}
@@ -43,12 +47,13 @@ public class PushCart : MonoBehaviour {
 	void Update(){
 		fwd = player.transform.TransformDirection(Vector3.forward);
 		fwdC = transform.TransformDirection(Vector3.forward);
-		Debug.DrawRay(player.transform.position, fwd, Color.red, 0.0f, false);
-		Debug.DrawRay(transform.position, fwdC*20, Color.red, 0.0f, false);
 		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
 			cartCheck();
 		}
 		if(attached){
+			//GetComponent<SFXFadeInOut>().StartSFX = true;
+			GameObject.Find("Player/Player_Cam/Flashlight").GetComponent<Light>().enabled = false;
+
 			GetComponent<MouseLook>().enabled = true;
 			GetComponent<CharacterMotor>().enabled = true;
 			GetComponent<CharacterMotor>().canControl = true;

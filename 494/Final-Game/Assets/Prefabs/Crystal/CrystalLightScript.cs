@@ -13,14 +13,11 @@ public class CrystalLightScript : MonoBehaviour {
 	private float neighbor_charge_step = 0.20f;
 	public bool is_being_charged_by_flashlight = false;
 	public bool is_being_charged_by_radiance = false;
-	private bool safe = true;
-	private CaveChecker caveChecker;
 	private RespawnTimer respawn;
 	// Use this for initialization
 	void Start () {
 		crystal_light = transform.GetChild(0).GetComponent<Light>();
 		respawn = GameObject.FindWithTag("Player").GetComponent<RespawnTimer>();
-		caveChecker = GameObject.FindWithTag("caveTrigger").GetComponent<CaveChecker>();
 	}
 	
 	// Update is called once per frame
@@ -96,15 +93,8 @@ public class CrystalLightScript : MonoBehaviour {
 		foreach (Collider col in colliders) {
 			if (col.tag == "Player") {
 				//Notify the player that he is safe
-				safe = true;
+				respawn.resetTimer();
 			}
-		}
-		if(!safe){
-			respawn.startTimer();
-		}
-		else {
-			respawn.stopTimer();
-			respawn.resetTimer();
 		}
 
 	}

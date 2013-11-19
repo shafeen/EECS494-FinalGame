@@ -2,21 +2,21 @@
 using System.Collections;
 
 public class CaveChecker : MonoBehaviour {
-	public bool inCave = false;
-	//private RespawnTimer respawn;
+	private RespawnTimer respawn;
 
 	void Start() {
-		//respawn = GameObject.FindWithTag("Player").GetComponent<RespawnTimer>;
+		respawn = GameObject.FindWithTag("Player").GetComponent<RespawnTimer>();
 	}
 	void OnTriggerEnter(Collider other) {
 		if(other.gameObject.tag == "Player") {
-			inCave = false;
+			respawn.stopTimer();
+			respawn.resetTimer();
 			print("NOT IN CAVE");
 		}
 	}
 	void OnTriggerExit(Collider other) {
 		if(other.gameObject.tag == "Player") {
-			inCave = true;
+			respawn.startTimer();
 			print("INCAVE");
 
 		}
