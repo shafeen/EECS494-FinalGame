@@ -1,7 +1,6 @@
 ﻿#pragma strict
 public var crosshairTexture : Texture2D;
 public var position : Rect;
-static var OriginalOn = true;
  
  function Start()
 {
@@ -10,8 +9,5 @@ static var OriginalOn = true;
  
 function OnGUI()
 {
-    if(OriginalOn == true)
-    {
-        GUI.DrawTexture(position, crosshairTexture);
-    }
+    GUI.DrawTexture(position, crosshairTexture);
 }
