@@ -7,24 +7,23 @@ public class ProtectPlayerLight : MonoBehaviour {
 	void Start () {
 	
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+		ProtectPlayer();
 	}
 
-	void ProtectPlayer() {
+	public void ProtectPlayer() {
 		
 		//Get a list of all objects within our light radius
-		Collider[] colliders = Physics.OverlapSphere(transform.position, transform.GetChild(0).GetComponent<Light>().range);
+		Collider[] colliders = Physics.OverlapSphere(transform.position, GetComponent<Light>().range);
 		
 		//If the player is within our light radius, protect him from baddies
 		foreach (Collider col in colliders) {
 			if (col.tag == "Player") {
 				//Notify the player that he is safe
-				col.transform.GetComponent<RespawnTimer>().resetTimer();
+				col.transform.GetComponent<RespawnTimer>().addTime();
 			}
 		}
-		
 	}
 }
