@@ -22,16 +22,7 @@ public class CrystalLightScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		print(caveChecker.inCave);
-//		if(caveChecker.inCave) {
-//			safe = false;
-//			print("unsafe");
-//		}
-//		else {
-//			safe = true;
-//			print("safe");
-//
-//		}
+
 		//The only difference between being charged by the flashlight and by another crystal, is that
 		//the flashlight will reset your max brightness to the full allowed
 		//local max brightness is how bright a particular crystal is allowed to be
@@ -54,10 +45,10 @@ public class CrystalLightScript : MonoBehaviour {
 		if (crystal_light.intensity > charge_neighbor_threshold) {
 			ChargeNeighbors();
 		}
-
-		if (crystal_light.intensity > min_light_intensity) {
-			ProtectPlayer();
-		}
+//
+//		if (crystal_light.intensity > min_light_intensity) {
+//			GetComponent<ProtectPlayerLight>().ProtectPlayer();
+//		}
 		
 		// Reset at the end of every update so the flashlight has to be kept on the crystal to set this true
 		is_being_charged_by_flashlight = false;
@@ -81,20 +72,5 @@ public class CrystalLightScript : MonoBehaviour {
 				}
 			}
 		}
-	}
-
-	void ProtectPlayer() {
-
-		//Get a list of all objects within our light radius
-		Collider[] colliders = Physics.OverlapSphere(transform.position, transform.GetChild(0).GetComponent<Light>().range);
-
-		//If the player is within our light radius, protect him from baddies
-		foreach (Collider col in colliders) {
-			if (col.tag == "Player") {
-				//Notify the player that he is safe
-				respawn.addTime();
-			}
-		}
-
 	}
 }

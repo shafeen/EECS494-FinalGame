@@ -6,7 +6,6 @@ public class RespawnTimer : MonoBehaviour {
 	public float timeLimit = 10;
 	public Transform respawnLocation;
 	private bool run = false;
-	private bool reverse = false;
 	private FadeInOut fader;
 	public float timeLeft;
 	void Start() {
@@ -25,7 +24,7 @@ public class RespawnTimer : MonoBehaviour {
 		if(time > timeLimit){
 			transform.position = respawnLocation.position;
 			transform.rotation = respawnLocation.rotation;
-
+			resetTimer();
 		}
 	}
 	public void startTimer(){

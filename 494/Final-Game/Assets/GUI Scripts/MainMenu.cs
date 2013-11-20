@@ -8,7 +8,6 @@ public class MainMenu : MonoBehaviour {
 	//	cursor = GameObject.Find("cursor").GetComponent<MenuCursor>();
 	}
 	void OnGUI () {
-		Screen.showCursor = false;
 		GUI.Label (new Rect (Screen.width/2-50, 40, 100, 100), "Time Out!", titleStyle);
 		if(GUI.Button(new Rect(Screen.width/2-50,120,100,30), "Start")){
 			Application.LoadLevel("Bedroom");

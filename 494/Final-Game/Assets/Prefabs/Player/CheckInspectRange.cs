@@ -16,9 +16,9 @@ public class CheckInspectRange : MonoBehaviour {
 		if (Physics.Raycast(lightRay, out hit, ray_range)) {
 			
 			if (hit.collider.tag == "focusObject") {
-				MoveCamera mv = hit.collider.transform.GetComponent<MoveCamera>();
-				if (mv) {
-					mv.activate();
+				HighlightScript highlight = hit.collider.transform.GetComponent<HighlightScript>();
+				if (highlight) {
+					highlight.activate();
 				}
 			}
 		}
