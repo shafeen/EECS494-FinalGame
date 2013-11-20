@@ -23,7 +23,10 @@ public class PauseMenu : MonoBehaviour {
 		}	
 	}
 	void OnGUI() {
+		Screen.showCursor = false;
+
 		if(paused) {
+			Screen.showCursor = true;
 			pauseMenu = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
 			pauseMenu = GUI.Window(0, pauseMenu, windowFunc, "PAUSED - Press ESC to resume");
 		}
