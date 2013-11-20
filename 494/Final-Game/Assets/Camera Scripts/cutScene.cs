@@ -43,33 +43,26 @@ public class cutScene : MonoBehaviour {
 			case CUTSCENETYPES.lookAt:
 				if(Quaternion.Angle(focusRotation, player.transform.rotation) < 5){
 					isColliding = false;
-					player.GetComponent<MouseLook>().enabled = true;
-					player_cam.GetComponent<MouseLook>().enabled = true;
-					player.GetComponent<CharacterMotor>().canControl = true;
-					player.GetComponent<FPSInputController>().enabled = true;
+					player.GetComponent<EnablePlayerInput>().EnableInput();
 				}
 				break;
 			case CUTSCENETYPES.timedCut:
 				if (time > cutsceneLength) {
 					isColliding = false;
-					player.GetComponent<MouseLook>().enabled = true;
-					player_cam.GetComponent<MouseLook>().enabled = true;
-					player.GetComponent<CharacterMotor>().canControl = true;
-					player.GetComponent<FPSInputController>().enabled = true;
+					player.GetComponent<EnablePlayerInput>().EnableInput();
 				}
 				break;
 		}
 	}
 	void OnTriggerEnter(Collider other){
-		Vector3 relativePos = focusObject.transform.position - player.transform.position;
-		relativePos.y = player.transform.position.y;
-		focusRotation = Quaternion.LookRotation(relativePos);
+		if (other.tag == "Player") {
+			Vector3 relativePos = focusObject.transform.position - player.transform.position;
+			relativePos.x = player.transform.position.x;
+			focusRotation = Quaternion.LookRotation(relativePos);
 
-		time = 0;
-		isColliding = true;
-		player.GetComponent<MouseLook>().enabled = false;
-		player_cam.GetComponent<MouseLook>().enabled = false;
-		player.GetComponent<CharacterMotor>().canControl = false;
-		player.GetComponent<FPSInputController>().enabled = false;
+			time = 0;
+			isColliding = true;
+			player.GetComponent<DisablePlayerInput>().DisableInput();
+		}
 	}
 }
