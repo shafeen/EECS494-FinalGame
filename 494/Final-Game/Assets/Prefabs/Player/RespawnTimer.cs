@@ -24,7 +24,7 @@ public class RespawnTimer : MonoBehaviour {
 		if(time > timeLimit){
 			transform.position = respawnLocation.position;
 			transform.rotation = respawnLocation.rotation;
-
+			resetTimer();
 		}
 	}
 	public void startTimer(){
