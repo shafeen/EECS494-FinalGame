@@ -13,6 +13,7 @@ public class DialogBox : MonoBehaviour
 {
 
 	private string dialogString;
+	private string dialogStringToShow;
 	private bool openDialogBox;
 	private float dialogDisplayTime;
 
@@ -21,12 +22,17 @@ public class DialogBox : MonoBehaviour
 	private float yPosition;	
 	private float boxWidth;
 	private float boxHeight;
+	private GUIStyle fontStyle;
 
 	// Use this for initialization
 	void Start () 
 	{
-		dialogString = "\n\n\t\tThis is a sample dialog box.";
+		dialogString = "TIME OUT!! DON'T COME OUT OF YOUR ROOM FOR FIVE MINUTES!!!";
+		dialogStringToShow = "";
 		openDialogBox = false;
+
+		fontStyle = new GUIStyle(GUI.skin.button);
+		fontStyle.fontSize = 40;
 	}
 	
 	// OnGUI is called once per frame
@@ -41,9 +47,21 @@ public class DialogBox : MonoBehaviour
 			boxHeight = Screen.height * 1/3;
 
 			Rect dialogRect = new Rect (xPosition, yPosition, boxWidth, boxHeight);
+
 			// Add Style to use --> to skin the dialog box later for polish
 
-			dialogString = GUI.TextField(dialogRect, dialogString);
+
+
+			// show one char at a time
+			if(dialogStringToShow.Length != dialogString.Length)
+				dialogStringToShow += dialogString[dialogStringToShow.Length];
+
+
+			fontStyle = new GUIStyle(GUI.skin.textField);
+			fontStyle.alignment = TextAnchor.MiddleCenter;
+			fontStyle.fontSize = 25;
+
+			dialogStringToShow = GUI.TextField(dialogRect, dialogStringToShow, fontStyle);
 		}
 	}
 
