@@ -15,16 +15,12 @@ public class DialogBox : MonoBehaviour
 	private string dialogString;
 	private bool openDialogBox;
 	private float dialogDisplayTime;
-	private const float displayTime = 5.0f;
 
 	// Dialog box parameters
 	private float xPosition;
 	private float yPosition;	
 	private float boxWidth;
 	private float boxHeight;
-
-	// Public settable string
-	public string publicString;
 
 	// Use this for initialization
 	void Start () 
@@ -45,11 +41,9 @@ public class DialogBox : MonoBehaviour
 			boxHeight = Screen.height * 1/3;
 
 			Rect dialogRect = new Rect (xPosition, yPosition, boxWidth, boxHeight);
-			GUIStyle textFieldStyle  = new GUIStyle(GUI.skin.textField);
-			textFieldStyle.fontSize  = 30;
-			textFieldStyle.alignment = TextAnchor.MiddleCenter;
+			// Add Style to use --> to skin the dialog box later for polish
 
-			dialogString = GUI.TextField(dialogRect, publicString, textFieldStyle);
+			dialogString = GUI.TextField(dialogRect, dialogString);
 		}
 	}
 
@@ -59,13 +53,8 @@ public class DialogBox : MonoBehaviour
 
 	void OnTriggerEnter(Collider noOneCaresSeriously)
 	{
-		showDialogBox ();
-	}
-
-	void showDialogBox()
-	{
 		openDialogBox = true;
-		dialogDisplayTime = Time.time + displayTime; //denotes 10 seconds in the future
+		dialogDisplayTime = Time.time + 10.0f; //denotes 10 seconds in the future
 	}
 
 
