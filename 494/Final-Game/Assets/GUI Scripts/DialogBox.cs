@@ -13,6 +13,7 @@ public class DialogBox : MonoBehaviour
 {
 
 	private string dialogString;
+	private string dialogStringToShow;
 	private bool openDialogBox;
 	private float dialogDisplayTime;
 
@@ -26,6 +27,7 @@ public class DialogBox : MonoBehaviour
 	void Start () 
 	{
 		dialogString = "\n\n\t\tThis is a sample dialog box.";
+		dialogStringToShow = "";
 		openDialogBox = false;
 	}
 	
@@ -42,8 +44,10 @@ public class DialogBox : MonoBehaviour
 
 			Rect dialogRect = new Rect (xPosition, yPosition, boxWidth, boxHeight);
 			// Add Style to use --> to skin the dialog box later for polish
+			if(dialogStringToShow.Length != dialogString.Length)
+				dialogStringToShow += dialogString[dialogStringToShow.Length];
 
-			dialogString = GUI.TextField(dialogRect, dialogString);
+			dialogStringToShow = GUI.TextField(dialogRect, dialogStringToShow);
 		}
 	}
 
