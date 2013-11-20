@@ -36,7 +36,7 @@ public class PushCart : MonoBehaviour {
 		}
 		else if(Physics.Raycast(player.transform.position, fwd, out hit, attachRange)) {
 			if(hit.collider.gameObject.name == "Minecart") {
-				if(Vector3.Angle(fwd,fwdC) < 8){
+				if(Vector3.Angle(fwd,fwdC) < 15){
 					//attaching
 					attached = true;
 					audio.Play();
