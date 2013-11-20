@@ -8,6 +8,7 @@ public class InitializeCaveScene : MonoBehaviour {
 	private int posMultiplier = 3;
 	private int rotMultiplier = 3;
 	private bool starting = true;
+	private bool done = false;
 
 	private GameObject player;
 	private GameObject player_cam;
@@ -34,30 +35,34 @@ public class InitializeCaveScene : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
+	// Update is called once per frame	
 	void Update () {
-		if (starting) {
-			player_cam.transform.position = object_cam.transform.position;
-			player_cam.transform.rotation = object_cam.transform.rotation;
-			starting = false;
-		}
+		if (!done) {
 
-		time += Time.deltaTime;
-		if (time > lookTime) {
-			player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, player_position.transform.rotation, rotMultiplier * Time.deltaTime);
-			player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, player_position.transform.position, posMultiplier * Time.deltaTime);
-			
-			if((player_cam.transform.position - player_position.transform.position).magnitude < 0.01){
-				player.GetComponent<EnablePlayerInput>().EnableInput();
-				player_cam.transform.position = player_position.transform.position;
-				player_cam.transform.rotation = player_position.transform.rotation;
+			if (starting) {
+				player_cam.transform.position = object_cam.transform.position;
+				player_cam.transform.rotation = object_cam.transform.rotation;
+				starting = false;
 			}
-		}
-		
-		else {
-			player.GetComponent<DisablePlayerInput>().DisableInput();
-			player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, closet_cam.transform.rotation, rotMultiplier * Time.deltaTime);
-			player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, closet_cam.transform.position, posMultiplier * Time.deltaTime);
+
+			time += Time.deltaTime;
+			if (time > lookTime) {
+				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, player_position.transform.rotation, rotMultiplier * Time.deltaTime);
+				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, player_position.transform.position, posMultiplier * Time.deltaTime);
+				
+				if((player_cam.transform.position - player_position.transform.position).magnitude < 0.01){
+					player.GetComponent<EnablePlayerInput>().EnableInput();
+					player_cam.transform.position = player_position.transform.position;
+					player_cam.transform.rotation = player_position.transform.rotation;
+					done = true;
+				}
+			}
+			
+			else {
+				player.GetComponent<DisablePlayerInput>().DisableInput();
+				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, closet_cam.transform.rotation, rotMultiplier * Time.deltaTime);
+				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, closet_cam.transform.position, posMultiplier * Time.deltaTime);
+			}
 		}
 	}
 }
