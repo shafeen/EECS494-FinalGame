@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PushCart : MonoBehaviour {
-	private bool attached = false;
+	public bool attached = false;
 	private RaycastHit hit;
 	private RaycastHit hit2;
 	private Vector3 fwd;
@@ -10,13 +10,16 @@ public class PushCart : MonoBehaviour {
 	public float attachRange = 1;
 	private GameObject player;
 	private GameObject player_cam;
+	private RespawnTimer respawn;
 	void Start() {
 		player = GameObject.Find("Player");
 		player_cam = GameObject.Find("Player/Player_Cam");
+		respawn = player.GetComponent<RespawnTimer>();
 	}
 
 	void cartCheck(){
 		if(attached){
+			//unattaching
 			GameObject.Find("Player/Player_Cam/Flashlight").GetComponent<Light>().enabled = true;
 			//GetComponent<SFXFadeInOut>().StopSFX = true;
 			audio.Stop();
@@ -34,6 +37,7 @@ public class PushCart : MonoBehaviour {
 		else if(Physics.Raycast(player.transform.position, fwd, out hit, attachRange)) {
 			if(hit.collider.gameObject.name == "Minecart") {
 				if(Vector3.Angle(fwd,fwdC) < 8){
+					//attaching
 					attached = true;
 					audio.Play();
 					audio.loop = true;
@@ -45,6 +49,9 @@ public class PushCart : MonoBehaviour {
 	}
 
 	void Update(){
+		if(attached && respawn.timeLeft < 3){
+			cartCheck ();
+		}
 		fwd = player.transform.TransformDirection(Vector3.forward);
 		fwdC = transform.TransformDirection(Vector3.forward);
 		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {

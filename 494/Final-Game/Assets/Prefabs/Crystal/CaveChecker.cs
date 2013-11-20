@@ -11,13 +11,16 @@ public class CaveChecker : MonoBehaviour {
 		if(other.gameObject.tag == "Player") {
 			respawn.stopTimer();
 			respawn.resetTimer();
-			print("NOT IN CAVE");
+		}
+	}
+	void OnTriggerStay(Collider other) {
+		if(other.gameObject.tag == "Player") {
+			respawn.resetTimer();
 		}
 	}
 	void OnTriggerExit(Collider other) {
 		if(other.gameObject.tag == "Player") {
 			respawn.startTimer();
-			print("INCAVE");
 
 		}
 	}
