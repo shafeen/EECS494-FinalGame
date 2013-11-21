@@ -15,7 +15,7 @@ public class CrystalDoorOpen : MonoBehaviour {
 	
 		if (transform.FindChild("door_light").GetComponent<Light>().intensity > GetComponent<CrystalLightScript>().GetMixedColorThreshold() && !is_open) {
 
-			GameObject.Find("Crystal_Green_Door").animation.Play("cave door open");
+			animation.Play("cave door open");
 			is_open = true;
 		}
 	}

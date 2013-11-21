@@ -142,23 +142,27 @@ public class CrystalLightScript : MonoBehaviour {
 					is_being_charged_by_radiance = true;
 					ret_value =  true;
 				} else {
-					kill_charge = true;
+					if (IsPrimaryColor(incoming_color)) {
+						kill_charge = true;
+					}
 				}
 				break;
 				}
 
 			case LIGHT_COLOR.PURPLE: {
 				if (incoming_color == LIGHT_COLOR.RED) {
-					//charge color one
+					charge_color_1 = true;
 					ret_value =  true;
 				} else if (incoming_color == LIGHT_COLOR.BLUE) {
-					//charge color two
+					charge_color_2 = true;
 					ret_value =  true;
 				} else if (incoming_color == my_light_color) {
 					is_being_charged_by_radiance = true;
 					ret_value =  true;
 				} else {
-					kill_charge = true;
+					if (IsPrimaryColor(incoming_color)) {
+						kill_charge = true;
+					}
 				}
 				break;
 			}
@@ -166,16 +170,18 @@ public class CrystalLightScript : MonoBehaviour {
 
 			case LIGHT_COLOR.ORANGE: {
 				if (incoming_color == LIGHT_COLOR.YELLOW) {
-					//charge color one
+					charge_color_1 = true;
 					ret_value =  true;
 				} else if (incoming_color == LIGHT_COLOR.RED) {
-					//charge color two
+					charge_color_2 = true;
 					ret_value =  true;
 				} else if (incoming_color == my_light_color) {
 					is_being_charged_by_radiance = true;
 					ret_value =  true;
 				} else {
-					kill_charge = true;
+					if (IsPrimaryColor(incoming_color)) {
+						kill_charge = true;
+					}
 				}
 				break;
 			}
@@ -209,5 +215,16 @@ public class CrystalLightScript : MonoBehaviour {
 
 	public float GetMixedColorThreshold() {
 		return mixed_color_threshold;
+	}
+
+	bool IsPrimaryColor(LIGHT_COLOR color) {
+		switch (color) {
+		case LIGHT_COLOR.RED:
+		case LIGHT_COLOR.BLUE:
+		case LIGHT_COLOR.YELLOW:
+			return true;
+			break;
+		}
+		return false;
 	}
 }
