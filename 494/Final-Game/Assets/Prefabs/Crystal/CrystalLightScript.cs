@@ -97,7 +97,7 @@ public class CrystalLightScript : MonoBehaviour {
 					crystal_light.intensity += light_charge_delta;
 				}
 			} else {
-				if (crystal_light.intensity > min_light_intensity) {
+				if (crystal_light.intensity > min_light_intensity && crystal_light.intensity < mixed_color_threshold) {
 					crystal_light.intensity -= light_discharge_delta * 5;
 				}
 			}
@@ -205,5 +205,9 @@ public class CrystalLightScript : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public float GetMixedColorThreshold() {
+		return mixed_color_threshold;
 	}
 }
