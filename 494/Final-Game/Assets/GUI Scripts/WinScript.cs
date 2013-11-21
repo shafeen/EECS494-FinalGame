@@ -17,6 +17,7 @@ public class WinScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		fader.guiTexture.pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
 		fwd = player.transform.TransformDirection(Vector3.forward);
 		if(winning) {
 			fader.guiTexture.enabled = true;

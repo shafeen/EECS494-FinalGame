@@ -22,7 +22,7 @@ public class PushCart : MonoBehaviour {
 			//unattaching
 			GameObject.Find("Player/Player_Cam/Flashlight").GetComponent<Light>().enabled = true;
 			//GetComponent<SFXFadeInOut>().StopSFX = true;
-			audio.Stop();
+			//audio.Stop();
 			attached = false;
 			player.transform.parent = null;
 			GetComponent<MouseLook>().enabled = false;
@@ -39,8 +39,8 @@ public class PushCart : MonoBehaviour {
 				if(Vector3.Angle(fwd,fwdC) < 15){
 					//attaching
 					attached = true;
-					audio.Play();
-					audio.loop = true;
+					//audio.Play();
+					//audio.loop = true;
 					transform.rotation = player.transform.rotation;
 					player.transform.parent = transform;
 				}
@@ -54,6 +54,7 @@ public class PushCart : MonoBehaviour {
 		}
 		fwd = player.transform.TransformDirection(Vector3.forward);
 		fwdC = transform.TransformDirection(Vector3.forward);
+		//Debug.DrawRay(transform.position,fwdC*5, Color.red, 0.0f, false);
 		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
 			cartCheck();
 		}
