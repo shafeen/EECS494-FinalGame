@@ -13,7 +13,7 @@ public class StaticScript : MonoBehaviour {
 	private Vector3 fwd;
 	private Color fadeLevel;
 	private RespawnTimer timer;
-	void Start (){
+	void Awake (){
 		timer = GameObject.Find("Player").GetComponent<RespawnTimer>();
 		myRenderer = renderer;
 		if(myRenderer == null) enabled = false;
