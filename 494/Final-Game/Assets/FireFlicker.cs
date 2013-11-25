@@ -41,7 +41,7 @@ public class FireFlicker : MonoBehaviour {
 		//float noise = Random.Range(0.8f, 1.5f);
 		Vector3 new_light_position = new Vector3(light_position.x + GetRandom(), light_position.y + GetRandom(), light_position.z + GetRandom());
 		GetComponent<Light>().intensity = Mathf.Lerp(min_light_intensity, max_light_intensity, noise);
-		transform.position = Vector3.Lerp(light_position, new_light_position, noise);
+		transform.position = Vector3.Lerp(light_position, new_light_position, noise * 10);
 	}
 
 	private float GetRandom() {
