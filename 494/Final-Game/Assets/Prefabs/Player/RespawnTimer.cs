@@ -6,12 +6,9 @@ public class RespawnTimer : MonoBehaviour {
 	public float timeLimit = 10;
 	public Transform respawnLocation;
 	private bool run = false;
-	private FadeInOut fader;
 	public float timeLeft;
 	void Start() {
 		time = 0;
-		fader = transform.Find("Player_Cam").gameObject.GetComponent<FadeInOut>();
-		fader.timeLimit = timeLimit;
 	}
 	// Update is called once per frame
 	void Update () {
@@ -19,7 +16,6 @@ public class RespawnTimer : MonoBehaviour {
 		if(run){
 			time += Time.deltaTime;
 		}
-		fader.timeLeft = time;
 
 		if(time > timeLimit){
 			transform.position = respawnLocation.position;
