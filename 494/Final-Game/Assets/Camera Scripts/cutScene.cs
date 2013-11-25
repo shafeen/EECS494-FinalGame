@@ -55,7 +55,7 @@ public class cutScene : MonoBehaviour {
 		}
 	}
 	void OnTriggerEnter(Collider other){
-		if (other.tag == "Player") {
+		if (other.tag == "Player" && focusObject) {
 			Vector3 relativePos = focusObject.transform.position - player.transform.position;
 			relativePos.x = player.transform.position.x;
 			focusRotation = Quaternion.LookRotation(relativePos);
