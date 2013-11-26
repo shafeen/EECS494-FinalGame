@@ -17,14 +17,14 @@ public class Heartbeat : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		delay -= Time.deltaTime;
-		if (timer.timeLeft < timer.timeLimit && timer.timeLeft > 0) {
+		if (timer.getTimeLeft() < timer.getTimeLimit() && timer.getTimeLeft() > 0) {
 			if (delay <= 0) {
 				heartbeats.Play();
-				delay =	Mathf.Max((timer.timeLeft/timer.timeLimit) * 1.0f, 0.4f);
-				heartbeats.volume = 1.0f - 0.8f * (timer.timeLeft/timer.timeLimit);
+				delay =	Mathf.Max((timer.getTimeLeft()/timer.getTimeLimit()) * 1.0f, 0.4f);
+				heartbeats.volume = 1.0f - 0.8f * (timer.getTimeLeft()/timer.getTimeLimit());
 				Debug.Log("Heartbeat delay is " + delay);
 			}
-		} else if (timer.timeLeft < timer.timeLimit && timer.timeLeft <= 0) {
+		} else if (timer.getTimeLeft() < timer.getTimeLimit() && timer.getTimeLeft() <= 0) {
 			if (delay <= 0) {
 				last_heartbeat.Play();
 				delay = 100000;
