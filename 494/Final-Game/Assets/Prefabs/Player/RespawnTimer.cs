@@ -6,7 +6,17 @@ public class RespawnTimer : MonoBehaviour {
 	public float timeLimit = 10;
 	public Transform respawnLocation;
 	private bool run = false;
-	public float timeLeft;
+	private float timeLeft;
+
+	public float getTimeLeft(){
+		return timeLeft;
+	}
+	public void respawn(){
+		time = timeLimit + 1;
+	}
+	public float getTimeLimit(){
+		return timeLimit;
+	}
 	void Start() {
 		time = 0;
 	}
