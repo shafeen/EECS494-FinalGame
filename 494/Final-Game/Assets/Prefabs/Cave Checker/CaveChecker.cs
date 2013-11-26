@@ -9,13 +9,11 @@ public class CaveChecker : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider other) {
 		if(other.gameObject.tag == "Player") {
-			print("enter");
 			respawn.stopTimer();
 			respawn.resetTimer();
 		}
 	}
 	void OnTriggerStay(Collider other) {
-		print("stay");
 		if(other.gameObject.tag == "Player") {
 			respawn.resetTimer();
 		}
@@ -23,7 +21,6 @@ public class CaveChecker : MonoBehaviour {
 	void OnTriggerExit(Collider other) {
 		if(other.gameObject.tag == "Player") {
 			respawn.startTimer();
-			print("ok");
 
 		}
 	}

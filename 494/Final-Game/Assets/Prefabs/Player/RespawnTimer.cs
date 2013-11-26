@@ -30,6 +30,7 @@ public class RespawnTimer : MonoBehaviour {
 		if(time > timeLimit){
 			transform.position = respawnLocation.position;
 			transform.rotation = respawnLocation.rotation;
+			run = false;
 			resetTimer();
 		}
 	}
@@ -39,6 +40,11 @@ public class RespawnTimer : MonoBehaviour {
 	public void stopTimer(){
 		run = false;
 	}
+
+	public bool getRunning() {
+		return run;
+	}
+
 	public void addTime(){
 		time -= 2*Time.deltaTime;
 		if(time <0.0f) time = 0.0f;
