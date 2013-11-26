@@ -16,8 +16,8 @@ public class CrystalLightScript : MonoBehaviour {
 	private float min_light_intensity = 0.1f;
 	public static float max_light_intensity = 5;
 	public float local_max_light_intensity = 4;
-	public float light_charge_delta = 0.05f;
-	private float light_discharge_delta = 0.02f;
+	private float light_charge_delta = 2.0f;
+	private float light_discharge_delta = 0.5f;
 	private float charge_neighbor_threshold = 2.0f;
 	private float neighbor_charge_step = 0.20f;
 	public bool is_being_charged_by_flashlight = false;
@@ -51,15 +51,15 @@ public class CrystalLightScript : MonoBehaviour {
 			if (is_being_charged_by_flashlight) {
 				local_max_light_intensity = max_light_intensity;
 				if (crystal_light.intensity < local_max_light_intensity) {
-					crystal_light.intensity += light_charge_delta;
+					crystal_light.intensity = Charge(crystal_light.intensity); 
 				}
 			} else if (is_being_charged_by_radiance) {
 				if (crystal_light.intensity < local_max_light_intensity) {
-					crystal_light.intensity += light_charge_delta;
+					crystal_light.intensity = Charge(crystal_light.intensity);
 				}
 			} else {
 				if (crystal_light.intensity > min_light_intensity) {
-					crystal_light.intensity -= light_discharge_delta;
+					crystal_light.intensity = Discharge(crystal_light.intensity);
 				}
 			}
 
@@ -74,31 +74,31 @@ public class CrystalLightScript : MonoBehaviour {
 		case LIGHT_COLOR.ORANGE:
 			if (charge_color_1 && !kill_charge) {
 				if (color_1_intensity < max_light_intensity) {
-					color_1_intensity += light_charge_delta;
+					color_1_intensity = Charge(color_1_intensity);
 				}
 			} else {
 				if (color_1_intensity > min_light_intensity) {
-					color_1_intensity -= light_discharge_delta * 5;
+					color_1_intensity = Discharge(color_1_intensity, 5);
 				}
 			}
 
 			if (charge_color_2 && !kill_charge) {
 				if (color_2_intensity < max_light_intensity) {
-					color_2_intensity += light_charge_delta;
+					color_2_intensity = Charge(color_2_intensity);
 				}
 			} else {
 				if (color_2_intensity > min_light_intensity) {
-					color_2_intensity -= light_discharge_delta * 5;
+					color_2_intensity = Discharge(color_2_intensity, 5);
 				}
 			}
 
 			if (color_1_intensity > mixed_color_threshold && color_2_intensity > mixed_color_threshold) {
 				if (crystal_light.intensity < local_max_light_intensity) {
-					crystal_light.intensity += light_charge_delta;
+					crystal_light.intensity = Charge(crystal_light.intensity);
 				}
 			} else {
 				if (crystal_light.intensity > min_light_intensity && crystal_light.intensity < mixed_color_threshold) {
-					crystal_light.intensity -= light_discharge_delta * 5;
+					crystal_light.intensity = Discharge(crystal_light.intensity, 5);
 				}
 			}
 
@@ -226,5 +226,22 @@ public class CrystalLightScript : MonoBehaviour {
 			break;
 		}
 		return false;
+	}
+
+	private float Charge(float intensity) {
+		Debug.Log(Time.deltaTime * light_charge_delta);
+		return intensity += Time.deltaTime * light_charge_delta;
+	}
+
+	private float Charge(float intensity, float multiplier) {
+		return intensity += Time.deltaTime * light_charge_delta * multiplier;
+	}
+
+	private float Discharge(float intensity) {
+		return intensity -= Time.deltaTime * light_discharge_delta;
+	}
+
+	private float Discharge(float intensity, float multiplier) {
+		return intensity -= Time.deltaTime * light_discharge_delta * multiplier;
 	}
 }
