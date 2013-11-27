@@ -15,6 +15,8 @@
         ZWrite On
 
         Cull Off
+        
+        LOD 100
 
 //       Blend SrcAlpha OneMinusSrcAlpha     // Alpha blending
 //		Blend One One                       // Additive

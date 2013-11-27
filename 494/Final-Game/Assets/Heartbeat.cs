@@ -22,7 +22,6 @@ public class Heartbeat : MonoBehaviour {
 				heartbeats.Play();
 				delay =	Mathf.Max((timer.getTimeLeft()/timer.getTimeLimit()) * 1.0f, 0.4f);
 				heartbeats.volume = 1.0f - 0.8f * (timer.getTimeLeft()/timer.getTimeLimit());
-				Debug.Log("Heartbeat delay is " + delay);
 			}
 		} else if (timer.getTimeLeft() < timer.getTimeLimit() && timer.getTimeLeft() <= 0) {
 			if (delay <= 0) {
