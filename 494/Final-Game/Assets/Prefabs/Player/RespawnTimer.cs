@@ -6,7 +6,17 @@ public class RespawnTimer : MonoBehaviour {
 	public float timeLimit = 10;
 	public Transform respawnLocation;
 	private bool run = false;
-	public float timeLeft;
+	private float timeLeft;
+
+	public float getTimeLeft(){
+		return timeLeft;
+	}
+	public void respawn(){
+		time = timeLimit + 1;
+	}
+	public float getTimeLimit(){
+		return timeLimit;
+	}
 	void Start() {
 		time = 0;
 	}
@@ -20,6 +30,7 @@ public class RespawnTimer : MonoBehaviour {
 		if(time > timeLimit){
 			transform.position = respawnLocation.position;
 			transform.rotation = respawnLocation.rotation;
+			run = false;
 			resetTimer();
 		}
 	}
@@ -29,6 +40,11 @@ public class RespawnTimer : MonoBehaviour {
 	public void stopTimer(){
 		run = false;
 	}
+
+	public bool getRunning() {
+		return run;
+	}
+
 	public void addTime(){
 		time -= 2*Time.deltaTime;
 		if(time <0.0f) time = 0.0f;

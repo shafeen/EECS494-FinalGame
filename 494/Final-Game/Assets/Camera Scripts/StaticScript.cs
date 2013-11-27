@@ -13,6 +13,8 @@ public class StaticScript : MonoBehaviour {
 	private Vector3 fwd;
 	private Color fadeLevel;
 	private RespawnTimer timer;
+	private float timeLimit;
+	private float timeLeft;
 	void Awake (){
 		timer = GameObject.Find("Player").GetComponent<RespawnTimer>();
 		myRenderer = renderer;
@@ -24,9 +26,13 @@ public class StaticScript : MonoBehaviour {
 		fadeLevel.a = 0;
 		myRenderer.material.color = fadeLevel;
 	}
+	void Start() {
+		timeLimit = timer.getTimeLimit();
+	}
 	void Update() {
+		timeLeft = timer.getTimeLeft();
 		fadeLevel = myRenderer.material.color;
-		fadeLevel.a = (1-timer.timeLeft/timer.timeLimit);	
+		fadeLevel.a = (1-timeLeft/timeLimit);	
 		myRenderer.material.color = fadeLevel;
 
 		int index = (int)(Time.time * fps) % (columns * rows);

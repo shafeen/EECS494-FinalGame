@@ -11,11 +11,12 @@ using UnityEngine;
 
 public class MotionBlur : ImageEffectBase
 {
-	public float blurAmount = 0.8f;
+	private float blurAmount = 0.8f;
 	public bool extraBlur = false;
 	
 	private RenderTexture accumTexture;
-	
+
+
 	override protected void Start()
 	{
 		if(!SystemInfo.supportsRenderTextures)
@@ -69,4 +70,13 @@ public class MotionBlur : ImageEffectBase
 		Graphics.Blit (source, accumTexture, material);
 		Graphics.Blit (accumTexture, destination);
 	}
+
+	public float getBlurAmount() {
+		return blurAmount;
+	}
+
+	public void setBlurAmount(float  _blurAmount) {
+		blurAmount = _blurAmount;
+	}
+
 }

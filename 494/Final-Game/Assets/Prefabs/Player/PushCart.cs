@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PushCart : MonoBehaviour {
-	public bool attached = false;
+	private bool attached = false;
 	private RaycastHit hit;
 	private RaycastHit hit2;
 	private Vector3 fwd;
@@ -11,6 +11,15 @@ public class PushCart : MonoBehaviour {
 	private GameObject player;
 	private GameObject player_cam;
 	private RespawnTimer respawn;
+
+	public void setAttached( bool _attached) {
+		attached = _attached;
+	}
+
+	public bool getAttached() {
+		return attached;
+	}
+
 	void Start() {
 		player = GameObject.Find("Player");
 		player_cam = GameObject.Find("Player/Player_Cam");
@@ -49,7 +58,7 @@ public class PushCart : MonoBehaviour {
 	}
 
 	void Update(){
-		if(attached && respawn.timeLeft < 3){
+		if(attached && respawn.getTimeLeft() < 3){
 			cartCheck ();
 		}
 		fwd = player.transform.TransformDirection(Vector3.forward);
