@@ -230,7 +230,6 @@ public class CrystalLightScript : MonoBehaviour {
 	}
 
 	private float Charge(float intensity) {
-		Debug.Log(Time.deltaTime * light_charge_delta);
 		return intensity += Time.deltaTime * light_charge_delta;
 	}
 
