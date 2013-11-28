@@ -16,10 +16,10 @@ public class CrystalLightScript : MonoBehaviour {
 	private float min_light_intensity = 0.4f;
 	public static float max_light_intensity = 5;
 	public float local_max_light_intensity = 4;
-	private float light_charge_delta = 2.0f;
+	private float light_charge_delta = 4.0f;
 	private float light_discharge_delta = 0.5f;
-	private float charge_neighbor_threshold = 2.0f;
-	private float neighbor_charge_step = 0.20f;
+	private float charge_neighbor_threshold = 1.0f;
+	private float neighbor_charge_step = 0.01f;
 	public bool is_being_charged_by_flashlight = false;
 	public bool is_being_charged_by_radiance = false;
 
