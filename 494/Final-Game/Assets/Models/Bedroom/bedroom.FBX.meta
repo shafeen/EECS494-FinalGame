@@ -1,0 +1,114 @@
+fileFormatVersion: 2
+guid: 5666516e0a579fc43bc698ff5b93e840
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: baseboard east
+    100002: baseboard east hall
+    100004: baseboard north
+    100006: baseboard south
+    100008: baseboard west
+    100010: //RootNode
+    100012: ceiling
+    100014: door frame closet
+    100016: door frame hallway
+    100018: walls
+    400000: baseboard east
+    400002: baseboard east hall
+    400004: baseboard north
+    400006: baseboard south
+    400008: baseboard west
+    400010: //RootNode
+    400012: ceiling
+    400014: door frame closet
+    400016: door frame hallway
+    400018: walls
+    2300000: baseboard east
+    2300002: baseboard east hall
+    2300004: baseboard north
+    2300006: baseboard south
+    2300008: baseboard west
+    2300010: ceiling
+    2300012: door frame closet
+    2300014: door frame hallway
+    2300016: walls
+    3300000: baseboard east
+    3300002: baseboard east hall
+    3300004: baseboard north
+    3300006: baseboard south
+    3300008: baseboard west
+    3300010: ceiling
+    3300012: door frame closet
+    3300014: door frame hallway
+    3300016: walls
+    4300000: walls
+    4300002: door frame closet
+    4300004: door frame hallway
+    4300006: baseboard south
+    4300008: baseboard east
+    4300010: baseboard north
+    4300012: baseboard west
+    4300014: baseboard east hall
+    4300016: ceiling
+    6400000: baseboard east
+    6400002: baseboard east hall
+    6400004: baseboard north
+    6400006: baseboard south
+    6400008: baseboard west
+    6400010: ceiling
+    6400012: door frame closet
+    6400014: door frame hallway
+    6400016: walls
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
