@@ -7,11 +7,7 @@ function Awake () {
 // Update is called once per frame
 function Update () {
 	// Get the input vector from keyboard or analog stick
-<<<<<<< HEAD
 	var directionVector = new Vector3(Mathf.Clamp(Input.GetAxis("L_XAxis_1")+Input.GetAxis("Horizontal"),-1,1), 0, Mathf.Clamp(Input.GetAxis("L_YAxis_1")+Input.GetAxis("Vertical"),-1,1));
-=======
-	var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
->>>>>>> Brad
 	if (directionVector != Vector3.zero) {
 		// Get the length of the directon vector and then normalize it
 		// Dividing by the length is cheaper than normalizing when we already have the length anyway
