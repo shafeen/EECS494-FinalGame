@@ -13,13 +13,13 @@ public class CrystalLightScript : MonoBehaviour {
 
 	public LIGHT_COLOR my_light_color;
 	private Light crystal_light;
-	private float min_light_intensity = 0.1f;
+	private float min_light_intensity = 0.4f;
 	public static float max_light_intensity = 5;
 	public float local_max_light_intensity = 4;
-	private float light_charge_delta = 2.0f;
+	private float light_charge_delta = 4.0f;
 	private float light_discharge_delta = 0.5f;
-	private float charge_neighbor_threshold = 2.0f;
-	private float neighbor_charge_step = 0.20f;
+	private float charge_neighbor_threshold = 1.0f;
+	private float neighbor_charge_step = 0.01f;
 	public bool is_being_charged_by_flashlight = false;
 	public bool is_being_charged_by_radiance = false;
 
@@ -34,6 +34,7 @@ public class CrystalLightScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		crystal_light = transform.GetChild(0).GetComponent<Light>();
+		crystal_light.intensity = 0.4f;
 	}
 	
 	// Update is called once per frame
@@ -229,7 +230,6 @@ public class CrystalLightScript : MonoBehaviour {
 	}
 
 	private float Charge(float intensity) {
-		Debug.Log(Time.deltaTime * light_charge_delta);
 		return intensity += Time.deltaTime * light_charge_delta;
 	}
 
