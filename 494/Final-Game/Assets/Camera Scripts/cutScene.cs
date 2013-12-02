@@ -29,7 +29,7 @@ public class cutScene : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		isColliding = false;
-		player = GameObject.Find("Player");
+		player = GameObject.FindWithTag("Player");
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 	}
 	
@@ -55,7 +55,7 @@ public class cutScene : MonoBehaviour {
 		}
 	}
 	void OnTriggerEnter(Collider other){
-		if (other.tag == "Player" && focusObject) {
+		if (other.tag == "Player" && focusObject && focusObject.active) {
 			Vector3 relativePos = focusObject.transform.position - player.transform.position;
 			//relativePos.x = player.transform.position.x;
 			focusRotation = Quaternion.LookRotation(relativePos);

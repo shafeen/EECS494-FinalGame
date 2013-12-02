@@ -21,7 +21,7 @@ public class PushCart : MonoBehaviour {
 	}
 
 	void Start() {
-		player = GameObject.Find("Player");
+		player = GameObject.FindWithTag("Player");
 		player_cam = GameObject.Find("Player/Player_Cam");
 		respawn = player.GetComponent<RespawnTimer>();
 	}

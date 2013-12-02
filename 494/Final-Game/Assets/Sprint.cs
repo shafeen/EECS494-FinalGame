@@ -23,7 +23,7 @@ public class Sprint : MonoBehaviour {
 			recharge_time -= Time.deltaTime;
 		}
 	
-		if (Input.GetKey("left shift") && remaining_sprint_time > 0) {
+		if ((Input.GetKey("left shift") || Input.GetButton("RB_1")) && remaining_sprint_time > 0) {
 			GetComponent<CharacterMotor>().movement.maxForwardSpeed = sprint_speed;
 			remaining_sprint_time -= Time.deltaTime;
 			recharge_time = recharge_delay;

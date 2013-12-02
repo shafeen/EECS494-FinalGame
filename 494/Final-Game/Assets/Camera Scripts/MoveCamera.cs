@@ -28,7 +28,7 @@ public class MoveCamera : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find ("Player");
+		player = GameObject.FindWithTag("Player");
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 		object_cam = transform.FindChild("Object_Cam").gameObject;
 		player_position = player.transform.FindChild("Player_Cam_Position").gameObject;

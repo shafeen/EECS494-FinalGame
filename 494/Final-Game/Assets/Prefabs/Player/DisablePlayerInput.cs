@@ -7,7 +7,7 @@ public class DisablePlayerInput : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find ("Player");
+		player = GameObject.FindWithTag("Player");
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 	}
 	
