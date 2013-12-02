@@ -25,7 +25,7 @@ public class Heartbeat : MonoBehaviour {
 			}
 		} else if (timer.getTimeLeft() < timer.getTimeLimit() && timer.getTimeLeft() <= 0) {
 			if (delay <= 0) {
-				last_heartbeat.Play();
+				//last_heartbeat.Play();
 				delay = 100000;
 			}
 		}
