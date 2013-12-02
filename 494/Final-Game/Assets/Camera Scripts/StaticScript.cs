@@ -16,7 +16,7 @@ public class StaticScript : MonoBehaviour {
 	private float timeLimit;
 	private float timeLeft;
 	void Awake (){
-		timer = GameObject.Find("Player").GetComponent<RespawnTimer>();
+		timer = GameObject.FindWithTag("Player").GetComponent<RespawnTimer>();
 		myRenderer = renderer;
 		if(myRenderer == null) enabled = false;
 		size = new Vector2 (1.0f / columns ,1.0f / rows);

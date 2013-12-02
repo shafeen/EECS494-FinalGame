@@ -10,7 +10,7 @@ public class DizzyScript : MonoBehaviour {
 	private float timeLeft;
 	void Start() {
 		blur = GameObject.Find("Player_Cam").GetComponent<MotionBlur>();
-		timer = GameObject.Find("Player").GetComponent<RespawnTimer>();
+		timer = GameObject.FindWithTag("Player").GetComponent<RespawnTimer>();
 		timeLimit = timer.getTimeLimit();
 	}
 	void Update() {

@@ -20,7 +20,7 @@ public class InitializeCaveScene : MonoBehaviour {
 
 	//Run as the scene is initializing
 	void Awake() {
-		player = GameObject.Find ("Player");
+		player = GameObject.FindWithTag("Player");
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 		player_position = player.transform.FindChild("Player_Cam_Position").gameObject;
 

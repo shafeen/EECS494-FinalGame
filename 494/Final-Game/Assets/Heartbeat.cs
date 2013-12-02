@@ -11,7 +11,7 @@ public class Heartbeat : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		timer = GameObject.Find("Player").GetComponent<RespawnTimer>();
+		timer = GameObject.FindWithTag("Player").GetComponent<RespawnTimer>();
 	}
 	
 	// Update is called once per frame
