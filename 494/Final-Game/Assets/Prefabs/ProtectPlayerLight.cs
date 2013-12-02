@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ProtectPlayerLight : MonoBehaviour {
 
-	private const float MIN_BRIGHTNESS_THRESHOLD = 0.1f;
+	private const float MIN_BRIGHTNESS_THRESHOLD = 0.4f;
 	// Use this for initialization
 	void Start () {
 	
