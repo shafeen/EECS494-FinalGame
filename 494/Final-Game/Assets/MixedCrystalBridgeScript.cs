@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CrystalBridgeScript : MonoBehaviour {
+public class MixedCrystalBridgeScript : MonoBehaviour {
 
 	private bool bridge_raised = false;
 
-	public Transform[] crystals;
+	public CrystalSet[] Crystal_Sets;
+	public Transform Mixed_Crystal_Light;
 
 	// Use this for initialization
 	void Start () {
@@ -15,9 +16,9 @@ public class CrystalBridgeScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		if (transform.Find("light").GetComponent<Light>().intensity > 3.0) {
+		if (Mixed_Crystal_Light && Mixed_Crystal_Light.GetComponent<Light>().intensity > 3.0) {
 			RaiseBridge();
-		} else if (AllCrystalsLit()) {
+		} else if (HasChargedSet()) {
 			RaiseBridge();
 		} else {
 			LowerBridge();
@@ -39,16 +40,37 @@ public class CrystalBridgeScript : MonoBehaviour {
 		}
 	}
 
-	bool AllCrystalsLit() {
-		if (crystals.Length == 0) {
+	bool HasChargedSet() {
+		if (Crystal_Sets.Length == 0) {
 			return false;
 		}
 
-		foreach (Transform t in crystals) {
+		foreach (CrystalSet cs in Crystal_Sets) {
+			if (SetIsCharged(cs)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	bool SetIsCharged(CrystalSet cs) {
+
+		if (cs.crystals.Length == 0) {
+			return false;
+		}
+
+		foreach (Transform t in cs.crystals) {
 			if (t.GetComponent<Light>().intensity < 3.0) {
 				return false;
 			}
 		}
+
 		return true;
+	}
+
+	[System.Serializable]
+	public class CrystalSet {
+		public Transform[] crystals;
 	}
 }
