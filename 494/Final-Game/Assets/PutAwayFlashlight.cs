@@ -25,11 +25,13 @@ public class PutAwayFlashlight : MonoBehaviour {
 
 	public void LowerFlashlight() {
 		animation.Play("Lower_Flashlight");
+		GetComponent<Light>().active = false;
 		flashlight_is_up = false;
 	}
 
 	public void RaiseFlashlight() {
 		animation.Play("Raise_Flashlight");
+		GetComponent<Light>().active = true;
 		flashlight_is_up = true;
 	}
 }
