@@ -10,12 +10,14 @@ public class PushScript : MonoBehaviour {
 	private Vector3 cartFwd;
 	private WheelTurn wheelTurn;
 	private RespawnTimer respawn;
+	private GameObject handle;
 
 	void Start () {
 		player = GameObject.FindWithTag("Player");
 		player_cam = player.transform.Find("Player_Cam").gameObject;
 		respawn = player.GetComponent<RespawnTimer>();
 		wheelTurn = transform.Find("Wheel Container").GetComponent<WheelTurn>();
+		handle = transform.Find("Handle").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -33,6 +35,8 @@ public class PushScript : MonoBehaviour {
 				player.GetComponent<CharacterMotor>().enabled = true;
 				player.GetComponent<CharacterMotor>().canControl = true;
 
+				handle.transform.Find("HandleCollider").gameObject.active = true;
+
 				wheelTurn.deactivate();
 			}
 			else {
@@ -43,12 +47,13 @@ public class PushScript : MonoBehaviour {
 	}
 	void attachToCart(){
 		if(Physics.Raycast(player.transform.position, playerFwd, out hit, attachRange)) {
-			if(hit.collider.gameObject == gameObject) {
+			if(hit.collider.gameObject == handle.transform.Find("HandleCollider").gameObject) {
 				if(Vector3.Angle(playerFwd,cartFwd) < 10){
 					transform.rotation = player.transform.rotation;
 					player.transform.parent = transform;
 					//PUT FLASHLIGHT DOWN
 					player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().LowerFlashlight();
+					handle.transform.Find("HandleCollider").gameObject.active = false;
 
 
 					player.GetComponent<MouseLook>().sensitivityX = 0.0f;
