@@ -19,24 +19,26 @@ public class PushScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		cartFwd = transform.TransformDirection(Vector3.forward);
 		playerFwd = player.transform.TransformDirection(Vector3.forward);
-		if(wheelTurn.isActive() && (Input.GetButtonDown("B_1") || Input.GetMouseButtonDown(1) || respawn.getTimeLeft() < 3)) {
+		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
 			//PUT FLASHLIGHT UP
-			player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().RaiseFlashlight();
-			player.transform.parent = null;
+			if(wheelTurn.isActive()) {
+				player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().RaiseFlashlight();
+				player.transform.parent = null;
 
-			player.GetComponent<MouseLook>().sensitivityX = 15.0f;
-			player.GetComponent<MouseLook>().sensitivityY = 15.0f;
-			player.GetComponent<CharacterMotor>().enabled = true;
-			player.GetComponent<CharacterMotor>().canControl = true;
+				player.GetComponent<MouseLook>().sensitivityX = 15.0f;
+				player.GetComponent<MouseLook>().sensitivityY = 15.0f;
+				player.GetComponent<CharacterMotor>().enabled = true;
+				player.GetComponent<CharacterMotor>().canControl = true;
 
-			wheelTurn.deactivate();
+				wheelTurn.deactivate();
+			}
+			else {
+				attachToCart();
+			}
 
-		}
-		if(Input.GetMouseButtonDown(0) || Input.GetButtonDown("A_1") && !wheelTurn.isActive()) {
-			attachToCart ();
 		}
 	}
 	void attachToCart(){

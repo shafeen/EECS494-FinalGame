@@ -61,6 +61,9 @@ public class WheelTurn : MonoBehaviour {
 				torque = -1 * back;
 				brake = forward;
 			}
+			else if(back < 0.001 && forward < 0.001) {
+				brake = 1;
+			}
 			else {
 				torque = forward;
 				brake = back;
