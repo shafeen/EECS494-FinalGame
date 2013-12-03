@@ -15,13 +15,21 @@ public class PutAwayFlashlight : MonoBehaviour {
 	
 		if (Input.GetButtonDown("B_1") || Input.GetKeyDown(KeyCode.Space)) {
 			if (flashlight_is_up) {
-				animation.Play("Lower_Flashlight");
-				flashlight_is_up = false;
+				LowerFlashlight();
 			} else {
-				animation.Play("Raise_Flashlight");
-				flashlight_is_up = true;
+				RaiseFlashlight();
 			}
 		}
 
+	}
+
+	public void LowerFlashlight() {
+		animation.Play("Lower_Flashlight");
+		flashlight_is_up = false;
+	}
+
+	public void RaiseFlashlight() {
+		animation.Play("Raise_Flashlight");
+		flashlight_is_up = true;
 	}
 }
