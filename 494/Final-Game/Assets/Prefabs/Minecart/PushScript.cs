@@ -43,8 +43,8 @@ public class PushScript : MonoBehaviour {
 	}
 	void attachToCart(){
 		if(Physics.Raycast(player.transform.position, playerFwd, out hit, attachRange)) {
-			if(hit.collider.gameObject.name == name) {
-				if(Vector3.Angle(playerFwd,cartFwd) < 20){
+			if(hit.collider.gameObject == gameObject) {
+				if(Vector3.Angle(playerFwd,cartFwd) < 10){
 					transform.rotation = player.transform.rotation;
 					player.transform.parent = transform;
 					//PUT FLASHLIGHT DOWN
