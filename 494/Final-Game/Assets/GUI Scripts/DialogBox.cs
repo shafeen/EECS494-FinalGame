@@ -5,6 +5,7 @@
 //	Still needs some work
 //	Currently DialogBox stays open based on a set time.
 //
+//  Dialog Box will time out after 100 seconds
 
 using UnityEngine;
 using System.Collections;
@@ -71,10 +72,31 @@ public class DialogBox : MonoBehaviour
 
 	void OnTriggerEnter(Collider noOneCaresSeriously)
 	{
+		// disable this if just using the C# property to activate
+		activateDialogBox ();
+	}
+
+	void activateDialogBox()
+	{
 		openDialogBox = true;
-		dialogDisplayTime = Time.time + 10.0f; //denotes 10 seconds in the future
+		dialogDisplayTime = Time.time + 100.0f; //denotes 100 seconds in the future
+	}
+
+	void disableDialogBox()
+	{
+		openDialogBox = false;
 	}
 
 
+	public bool ShowDialog
+	{
+		get { return openDialogBox;}
+		set { 
+			if(value) 
+				activateDialogBox();
+			else
+				disableDialogBox();
+		}
+	}
 	                  
 }
