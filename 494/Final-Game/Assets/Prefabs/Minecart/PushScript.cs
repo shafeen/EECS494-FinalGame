@@ -12,8 +12,8 @@ public class PushScript : MonoBehaviour {
 	private RespawnTimer respawn;
 
 	void Start () {
-		player = GameObject.Find("Player");
-		player_cam = GameObject.Find("Player/Player_Cam");
+		player = GameObject.FindWithTag("Player");
+		player_cam = player.transform.Find("Player_Cam").gameObject;
 		respawn = player.GetComponent<RespawnTimer>();
 		wheelTurn = transform.Find("Wheel Container").GetComponent<WheelTurn>();
 	}
@@ -23,18 +23,14 @@ public class PushScript : MonoBehaviour {
 		cartFwd = transform.TransformDirection(Vector3.forward);
 		playerFwd = player.transform.TransformDirection(Vector3.forward);
 		if(wheelTurn.isActive() && (Input.GetButtonDown("B_1") || Input.GetMouseButtonDown(1) || respawn.getTimeLeft() < 3)) {
-			GameObject.Find("Player/Player_Cam/Flashlight").GetComponent<Light>().enabled = true;
-			GameObject.Find("Player/Player_Cam/Flashlight").GetComponent<FlashlightRaycast>().enabled = true;
-			GameObject.Find("Player/Player_Cam/Flashlight/Wide_light").GetComponent<Light>().enabled = true;
-
-
+			//PUT FLASHLIGHT UP
+			player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().RaiseFlashlight();
 			player.transform.parent = null;
 
 			player.GetComponent<MouseLook>().sensitivityX = 15.0f;
 			player.GetComponent<MouseLook>().sensitivityY = 15.0f;
 			player.GetComponent<CharacterMotor>().enabled = true;
 			player.GetComponent<CharacterMotor>().canControl = true;
-			player_cam.transform.rotation = player.transform.rotation;
 
 			wheelTurn.deactivate();
 
@@ -49,9 +45,8 @@ public class PushScript : MonoBehaviour {
 				if(Vector3.Angle(playerFwd,cartFwd) < 20){
 					transform.rotation = player.transform.rotation;
 					player.transform.parent = transform;
-					GameObject.Find("Player/Player_Cam/Flashlight").GetComponent<Light>().enabled = false;
-					GameObject.Find("Player/Player_Cam/Flashlight").GetComponent<FlashlightRaycast>().enabled = false;
-					GameObject.Find("Player/Player_Cam/Flashlight/Wide_light").GetComponent<Light>().enabled = false;
+					//PUT FLASHLIGHT DOWN
+					player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().LowerFlashlight();
 
 
 					player.GetComponent<MouseLook>().sensitivityX = 0.0f;

@@ -11,7 +11,7 @@ public class PutAwayFlashlight : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
 	
 		if (Input.GetButtonDown("B_1") || Input.GetKeyDown(KeyCode.E)) {
 			if (flashlight_is_up) {
@@ -21,7 +21,7 @@ public class PutAwayFlashlight : MonoBehaviour {
 			}
 		}
 
-	}
+	}*/
 
 	public void LowerFlashlight() {
 		animation.Play("Lower_Flashlight");
