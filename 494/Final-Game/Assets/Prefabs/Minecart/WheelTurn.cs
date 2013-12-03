@@ -10,7 +10,6 @@ public class WheelTurn : MonoBehaviour {
 	public Transform FLWheel;
 	public Transform BRWheel;
 	public Transform BLWheel;
-	private Vector3 downForce = Vector3.zero;
 
 	private float steer_max = 20;
 	private float torque_max = 10;
@@ -23,7 +22,7 @@ public class WheelTurn : MonoBehaviour {
 	private float forward = 0;
 	private bool reverse = false;
 	private float speed = 0;
-	private bool good = false;
+	private int side = 0;
 
 	private bool activated = false;
 	private Transform cart;
@@ -33,9 +32,9 @@ public class WheelTurn : MonoBehaviour {
 		Vector3 temp = new Vector3(0,-2,0);
 		cart.rigidbody.centerOfMass = temp;
 	}
-	public void activate(){
+	public void activate(int _side){
+		side = _side;
 		activated = true;
-		good = false;
 	}
 	public void deactivate(){
 		activated = false;
@@ -51,23 +50,11 @@ public class WheelTurn : MonoBehaviour {
 			steer = Mathf.Clamp(Input.GetAxis("L_XAxis_1") + Input.GetAxis("Horizontal"),-1,1);
 			forward = Mathf.Clamp(Input.GetAxis("Vertical") + Input.GetAxis("L_YAxis_1"), 0, 1);
 			back = -1 * Mathf.Clamp(Input.GetAxis("Vertical")+Input.GetAxis("L_YAxis_1"), -1, 0);
-			if(speed < 0.0001) {
-				if(back > 0) {
-					reverse = true;
-				}
-				if(forward > 0) {
-					reverse = false;
-				}
-			}
-			if(back < 0.0001 && forward < 0.0001) {
-				brake = 2;
-			}
-			else if(reverse) {
-				torque = -1 * back;
-				brake = forward;
+			if(back < 0.001 && forward < 0.001) {
+				brake = 1;
 			}
 			else {
-				torque = forward;
+				torque = side * forward;
 				brake = back;
 			}
 		}
@@ -76,25 +63,20 @@ public class WheelTurn : MonoBehaviour {
 			torque = 0;
 			if(speed < 0.01) {
 				brake = 0;
-				good = true;
-			}
-			if(good){
-				brake = 0;
 			}
 			else {
 				brake = 1;
 			}
 		}
-
-		FRColl.steerAngle = steer * steer_max;
-		FLColl.steerAngle = steer * steer_max;
+		FRColl.steerAngle = side * steer * steer_max;
+		FLColl.steerAngle = side * steer * steer_max;
 		if(speed > 1) {
 			BRColl.motorTorque = torque * torque_max * 2/speed;
 			BLColl.motorTorque = torque * torque_max * 2/speed;
 		}
 		else {
-			BLColl.motorTorque = torque * torque_max;
 			BRColl.motorTorque = torque * torque_max;
+			BLColl.motorTorque = torque * torque_max;
 		}
 		BRColl.brakeTorque = brake * brake_max;
 		BLColl.brakeTorque = brake * brake_max;
