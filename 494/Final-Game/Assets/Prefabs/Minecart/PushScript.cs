@@ -13,7 +13,7 @@ public class PushScript : MonoBehaviour {
 
 	void Start () {
 		player = GameObject.FindWithTag("Player");
-		player_cam = player.Find("Player_Cam");
+		player_cam = player.transform.Find("Player_Cam").gameObject;
 		respawn = player.GetComponent<RespawnTimer>();
 		wheelTurn = transform.Find("Wheel Container").GetComponent<WheelTurn>();
 	}
@@ -24,7 +24,7 @@ public class PushScript : MonoBehaviour {
 		playerFwd = player.transform.TransformDirection(Vector3.forward);
 		if(wheelTurn.isActive() && (Input.GetButtonDown("B_1") || Input.GetMouseButtonDown(1) || respawn.getTimeLeft() < 3)) {
 			//PUT FLASHLIGHT UP
-
+			player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().RaiseFlashlight();
 			player.transform.parent = null;
 
 			player.GetComponent<MouseLook>().sensitivityX = 15.0f;
@@ -46,6 +46,7 @@ public class PushScript : MonoBehaviour {
 					transform.rotation = player.transform.rotation;
 					player.transform.parent = transform;
 					//PUT FLASHLIGHT DOWN
+					player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().LowerFlashlight();
 
 
 					player.GetComponent<MouseLook>().sensitivityX = 0.0f;
