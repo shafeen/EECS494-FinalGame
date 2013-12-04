@@ -45,6 +45,7 @@ public class InitializeCaveScene : MonoBehaviour {
 		}
 
 		GameObject.FindWithTag("Monster").animation.Play("Steal Bear");
+		GameObject.FindWithTag("Teddy").animation.Play("Kidnapped");
 	}
 	
 	// Update is called once per frame	
@@ -67,6 +68,7 @@ public class InitializeCaveScene : MonoBehaviour {
 					player_cam.transform.position = player_position.transform.position;
 					player_cam.transform.rotation = player_position.transform.rotation;
 					done = true;
+					Destroy(GameObject.FindWithTag("Teddy"));
 				}
 			}
 			
