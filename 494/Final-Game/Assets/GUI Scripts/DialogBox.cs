@@ -13,7 +13,7 @@ using System.Collections;
 public class DialogBox : MonoBehaviour
 {
 
-	private string dialogString;
+	public string dialogString;
 	private string dialogStringToShow;
 	private bool openDialogBox;
 	private float dialogDisplayTime;
@@ -28,7 +28,7 @@ public class DialogBox : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		dialogString = "TIME OUT!! DON'T COME OUT OF YOUR ROOM FOR FIVE MINUTES!!!";
+		//dialogString = "TIME OUT!! DON'T COME OUT OF YOUR ROOM FOR FIVE MINUTES!!!";
 		dialogStringToShow = "";
 		openDialogBox = false;
 
@@ -73,6 +73,15 @@ public class DialogBox : MonoBehaviour
 	void OnTriggerEnter(Collider noOneCaresSeriously)
 	{
 		// disable this if just using the C# property to activate
+		activateDialogBox ();
+	}
+
+
+	void OnTriggerExit(Collider col) {
+		disableDialogBox();
+	}
+
+	void OnCollisionEnter(Collision col) {
 		activateDialogBox ();
 	}
 

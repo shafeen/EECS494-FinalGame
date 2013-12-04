@@ -5,6 +5,7 @@ public class PickUpFlashlight : MonoBehaviour {
 
 	private GameObject object_highlight;
 	private GameObject player;
+	public GameObject roadblock;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +25,7 @@ public class PickUpFlashlight : MonoBehaviour {
 		if (transform.FindChild("Object_Highlight").gameObject.GetComponent<Light>().enabled) {
 			Debug.Log("Clicked on active item");
 			Destroy(gameObject);
+			Destroy(roadblock);
 			player.transform.FindChild("Player_Cam").FindChild("Flashlight").active = true;
 		}
 	}
