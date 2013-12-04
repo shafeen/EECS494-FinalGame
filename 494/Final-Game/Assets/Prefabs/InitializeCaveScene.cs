@@ -43,6 +43,8 @@ public class InitializeCaveScene : MonoBehaviour {
 		while((inspectable_closet_door.transform.eulerAngles.y - closedEulerAngle.y) < openedEulerAngleY) {
 			inspectable_closet_door.transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
 		}
+
+		GameObject.FindWithTag("Monster").animation.Play("Steal Bear");
 	}
 	
 	// Update is called once per frame	
