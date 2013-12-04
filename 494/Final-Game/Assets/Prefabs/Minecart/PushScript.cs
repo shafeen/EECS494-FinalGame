@@ -30,6 +30,7 @@ public class PushScript : MonoBehaviour {
 			//PUT FLASHLIGHT UP
 			if(wheelTurn.isActive()) {
 				player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().RaiseFlashlight();
+				transform.Find("Flashlight").active = false;
 				player.transform.parent = null;
 
 				player.GetComponent<MouseLook>().sensitivityX = 15.0f;
@@ -58,6 +59,7 @@ public class PushScript : MonoBehaviour {
 					player.transform.parent = transform;
 					//PUT FLASHLIGHT DOWN
 					player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().LowerFlashlight();
+					transform.Find("Flashlight").active = true;
 					handle1.transform.Find("HandleCollider1").gameObject.active = false;
 					handle2.transform.Find("HandleCollider2").gameObject.active = false;
 
@@ -76,6 +78,7 @@ public class PushScript : MonoBehaviour {
 					player.transform.parent = transform;
 					//PUT FLASHLIGHT DOWN
 					player_cam.transform.Find("Flashlight").gameObject.GetComponent<PutAwayFlashlight>().LowerFlashlight();
+					transform.Find("Flashlight").active = true;
 					handle1.transform.Find("HandleCollider1").gameObject.active = false;
 					handle2.transform.Find("HandleCollider2").gameObject.active = false;
 
