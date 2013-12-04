@@ -45,6 +45,7 @@ public class KillTorches : MonoBehaviour {
 
 	IEnumerator PutOutTorches() {
 		sceneCue = SceneCue.WAIT;
+		GameObject.FindWithTag("Monster").animation.Play("PutOutTorches");
 		foreach (TorchSet ts in torchSets) {
 			yield return new WaitForSeconds(ts.delay);
 			Debug.Log("Turning off some torches");
