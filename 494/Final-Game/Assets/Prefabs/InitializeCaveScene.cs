@@ -18,6 +18,11 @@ public class InitializeCaveScene : MonoBehaviour {
 	private GameObject object_cam;
 	private GameObject closet_cam;
 
+	private GameObject inspectable_closet_door;
+	private Vector3 closedEulerAngle;
+	private float openedEulerAngleY = 60.0f;
+	private float turnSpeed = 50.0f;
+
 	//Run as the scene is initializing
 	void Awake() {
 		player = GameObject.FindWithTag("Player");
@@ -28,11 +33,16 @@ public class InitializeCaveScene : MonoBehaviour {
 		object_cam = inspectable_drawing.transform.FindChild("Object_Cam").gameObject;
 		closet_cam = inspectable_drawing.transform.FindChild("Closet_Cam").gameObject;
 
+		inspectable_closet_door = GameObject.Find("Inspectable_Closet_Door");
+		closedEulerAngle = inspectable_closet_door.transform.eulerAngles;
 	}
 
 	// Use this for initialization
 	void Start () {
-
+		// open the closet door for the monster scene
+		while((inspectable_closet_door.transform.eulerAngles.y - closedEulerAngle.y) < openedEulerAngleY) {
+			inspectable_closet_door.transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
+		}
 	}
 	
 	// Update is called once per frame	
