@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour {
 	void OnGUI () {
 		GUI.Label (new Rect (Screen.width/2-50, 40, 100, 100), "Time Out!", titleStyle);
 		if(GUI.Button(new Rect(Screen.width/2-50,120,100,30), "Start")){
-			Application.LoadLevel("Bedroom");
+			Application.LoadLevel("BedroomLevel");
 		}
 		if(GUI.Button(new Rect(Screen.width/2-50,150,100,30), "Settings")){
 			Application.LoadLevel("Settings");
