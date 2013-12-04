@@ -44,14 +44,12 @@ public class PushScript : MonoBehaviour {
 				wheelTurn.deactivate();
 			}
 			else {
-				print("1");
 				attachToCart();
 			}
 		}
 	}
 	void attachToCart(){
 		if(Physics.Raycast(player.transform.position, playerFwd, out hit, attachRange)) {
-			print(hit.collider.name);
 			//From the front
 			if(hit.collider.gameObject == handle1.transform.Find("HandleCollider1").gameObject) {
 				if(Mathf.Abs(Vector3.Angle(playerFwd,cartFwd)-180) < 10){

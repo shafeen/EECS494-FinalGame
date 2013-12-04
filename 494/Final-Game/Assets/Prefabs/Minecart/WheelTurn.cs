@@ -51,6 +51,7 @@ public class WheelTurn : MonoBehaviour {
 			forward = Mathf.Clamp(Input.GetAxis("Vertical") + Input.GetAxis("L_YAxis_1"), 0, 1);
 			back = -1 * Mathf.Clamp(Input.GetAxis("Vertical")+Input.GetAxis("L_YAxis_1"), -1, 0);
 			if(back < 0.001 && forward < 0.001) {
+				torque = 0;
 				brake = 1;
 			}
 			else {
