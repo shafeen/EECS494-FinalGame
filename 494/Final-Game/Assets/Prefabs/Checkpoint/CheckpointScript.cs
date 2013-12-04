@@ -17,7 +17,7 @@ public class CheckpointScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if (active && col.tag == "Player") {
+		if (active && (col.tag == "Player" || col.tag == "cart")) {
 			Debug.Log("Player reached checkpoint");
 			active = false;
 			player.GetComponent<RespawnTimer>().respawnLocation = transform;

@@ -22,6 +22,7 @@ public class WheelTurn : MonoBehaviour {
 	private float forward = 0;
 	private bool reverse = false;
 	private float speed = 0;
+	private int side = 0;
 
 	private bool activated = false;
 	private Transform cart;
@@ -31,7 +32,8 @@ public class WheelTurn : MonoBehaviour {
 		Vector3 temp = new Vector3(0,-2,0);
 		cart.rigidbody.centerOfMass = temp;
 	}
-	public void activate(){
+	public void activate(int _side){
+		side = _side;
 		activated = true;
 	}
 	public void deactivate(){
@@ -48,23 +50,11 @@ public class WheelTurn : MonoBehaviour {
 			steer = Mathf.Clamp(Input.GetAxis("L_XAxis_1") + Input.GetAxis("Horizontal"),-1,1);
 			forward = Mathf.Clamp(Input.GetAxis("Vertical") + Input.GetAxis("L_YAxis_1"), 0, 1);
 			back = -1 * Mathf.Clamp(Input.GetAxis("Vertical")+Input.GetAxis("L_YAxis_1"), -1, 0);
-			if(speed < 0.01) {
-				if(back > 0) {
-					reverse = true;
-				}
-				if(forward > 0) {
-					reverse = false;
-				}
-			}
 			if(back < 0.001 && forward < 0.001) {
 				brake = 1;
 			}
-			else if(reverse) {
-				torque = -1 * back;
-				brake = forward;
-			}
 			else {
-				torque = forward;
+				torque = side * forward;
 				brake = back;
 			}
 		}
@@ -78,10 +68,16 @@ public class WheelTurn : MonoBehaviour {
 				brake = 1;
 			}
 		}
-		FRColl.steerAngle = steer * steer_max;
-		FLColl.steerAngle = steer * steer_max;
-		BRColl.motorTorque = torque * torque_max;
-		BLColl.motorTorque = torque * torque_max;
+		FRColl.steerAngle = side * steer * steer_max;
+		FLColl.steerAngle = side * steer * steer_max;
+		if(speed > 1) {
+			BRColl.motorTorque = torque * torque_max * 2/speed;
+			BLColl.motorTorque = torque * torque_max * 2/speed;
+		}
+		else {
+			BRColl.motorTorque = torque * torque_max;
+			BLColl.motorTorque = torque * torque_max;
+		}
 		BRColl.brakeTorque = brake * brake_max;
 		BLColl.brakeTorque = brake * brake_max;
 
