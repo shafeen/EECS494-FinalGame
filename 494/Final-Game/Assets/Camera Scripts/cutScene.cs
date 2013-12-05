@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class cutScene : MonoBehaviour {
-	public enum CUTSCENETYPES {lookAt, timedCut};
+	public enum CUTSCENETYPES {lookAt, timedCut, track};
 	public GameObject focusObject;
 	public CUTSCENETYPES cutsceneType;
 	public float cutsceneLength;
@@ -37,6 +37,9 @@ public class cutScene : MonoBehaviour {
 	void Update () {
 		time += Time.deltaTime;
 		if (isColliding) {
+			if (cutsceneType == CUTSCENETYPES.track) {
+				SetFocusRotation();
+			}
 			player.transform.rotation = Quaternion.Lerp (player.transform.rotation, focusRotation, multiplier * Time.deltaTime);
 		}
 		switch (cutsceneType) {
@@ -46,6 +49,14 @@ public class cutScene : MonoBehaviour {
 					player.GetComponent<EnablePlayerInput>().EnableInput();
 				}
 				break;
+
+			case CUTSCENETYPES.track:
+			if (time > cutsceneLength) {
+				isColliding = false;
+				player.GetComponent<EnablePlayerInput>().EnableInput();
+			}
+			break;
+
 			case CUTSCENETYPES.timedCut:
 				if (time > cutsceneLength) {
 					isColliding = false;
@@ -56,13 +67,17 @@ public class cutScene : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider other){
 		if (other.tag == "Player" && focusObject && focusObject.active) {
-			Vector3 relativePos = focusObject.transform.position - player.transform.position;
-			//relativePos.x = player.transform.position.x;
-			focusRotation = Quaternion.LookRotation(relativePos);
+			SetFocusRotation();
 
 			time = 0;
 			isColliding = true;
 			player.GetComponent<DisablePlayerInput>().DisableInput();
 		}
+	}
+
+	void SetFocusRotation() {
+		Vector3 relativePos = focusObject.transform.position - player.transform.position;
+		//relativePos.x = player.transform.position.x;
+		focusRotation = Quaternion.LookRotation(relativePos);
 	}
 }

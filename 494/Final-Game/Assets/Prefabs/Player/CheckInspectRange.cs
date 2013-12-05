@@ -13,7 +13,7 @@ public class CheckInspectRange : MonoBehaviour {
 	void Update () {
 		RaycastHit hit;
 		Ray lightRay;
-		if (flashlight) {
+		if (flashlight.active) {
 			lightRay = new Ray(flashlight.position, flashlight.forward);
 			Debug.DrawRay(flashlight.position, ray_range * flashlight.forward, Color.yellow, 0.0f, false);
 		} else {
