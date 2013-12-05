@@ -13,6 +13,7 @@ public class cutScene : MonoBehaviour {
 	private bool isColliding;
 	private float time;
 	private Quaternion focusRotation;
+	private Quaternion focusMouselookRotation;
 
 
 //	private Transform target;
@@ -41,6 +42,7 @@ public class cutScene : MonoBehaviour {
 				SetFocusRotation();
 			}
 			player.transform.rotation = Quaternion.Lerp (player.transform.rotation, focusRotation, multiplier * Time.deltaTime);
+			player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, focusMouselookRotation, multiplier * Time.deltaTime);
 		}
 		switch (cutsceneType) {
 			case CUTSCENETYPES.lookAt:
@@ -76,8 +78,11 @@ public class cutScene : MonoBehaviour {
 	}
 
 	void SetFocusRotation() {
-		Vector3 relativePos = focusObject.transform.position - player.transform.position;
-		//relativePos.x = player.transform.position.x;
-		focusRotation = Quaternion.LookRotation(relativePos);
+		Vector3 relativePlayerPos = new Vector3(focusObject.transform.position.x, 
+		                                        player.transform.position.y, 
+		                                        focusObject.transform.position.z) - player.transform.position;
+		Vector3 relativeMouselookPos = focusObject.transform.position - player_cam.transform.position;
+		focusRotation = Quaternion.LookRotation(relativePlayerPos);
+		focusMouselookRotation = Quaternion.LookRotation(relativeMouselookPos);
 	}
 }
