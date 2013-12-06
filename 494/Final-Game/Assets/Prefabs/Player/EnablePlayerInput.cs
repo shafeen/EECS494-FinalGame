@@ -22,5 +22,6 @@ public class EnablePlayerInput : MonoBehaviour {
 		player.GetComponent<CharacterMotor>().canControl = true;
 		player.GetComponent<FPSInputController>().enabled = true;
 		player_cam.GetComponent<HeadBob>().enabled = true;
+		player_cam.GetComponent<CheckInspectRange>().enabled = true;
 	}
 }

@@ -5,6 +5,8 @@ public class HighlightScript : MonoBehaviour {
 	private GameObject object_highlight;
 	private GameObject object_sparkle;
 	private bool activated = false;
+	public Texture a_button;
+	public Texture left_click;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +25,14 @@ public class HighlightScript : MonoBehaviour {
 		}
 
 		activated = false;
+	}
+
+	void OnGUI() {
+		if (object_sparkle.active) {
+			GUI.DrawTexture(new Rect(Screen.width / 2 - 20, Screen.height - Screen.height * 0.3f, 64, 64), a_button, ScaleMode.ScaleToFit, true, 0);
+			GUI.DrawTexture(new Rect(Screen.width / 2 + 20, Screen.height - Screen.height * 0.3f, 100, 100), left_click, ScaleMode.ScaleToFit, true, 0);
+		}
+
 	}
 
 	public void activate() {

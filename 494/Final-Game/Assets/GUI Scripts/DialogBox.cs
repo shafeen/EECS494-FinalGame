@@ -13,10 +13,26 @@ using System.Collections;
 public class DialogBox : MonoBehaviour
 {
 
+	//CANCELLABLE is for boxes which can only be closed by B (ie inspect)
+	//ACCEPT_DECLINE is for boxes which can use A to accept or B to close (Start level pictures)
+	//NEXT is for multi-box messages (if we have any), where there's multiple boxes to show in a row
+	//Each one has unique button and key icons displayed
+	public enum DialogType {
+		CANCELLABLE,
+		ACCEPT_DECLINE,
+		NEXT };
+
+	public DialogType dialogType;
+
+	//Textures
+	public Texture b_button;
+	public Texture a_button;
+	public Texture left_mouse;
+	public Texture right_mouse;
+
 	public string dialogString;
 	private string dialogStringToShow;
 	private bool openDialogBox;
-	private float dialogDisplayTime;
 
 	// Dialog box parameters
 	private float xPosition;
@@ -40,7 +56,7 @@ public class DialogBox : MonoBehaviour
 	void OnGUI()
 	{
 
-		if (openDialogBox && Time.time < dialogDisplayTime)
+		if (openDialogBox)
 		{
 			xPosition = Screen.width  * 1/8;
 			yPosition = Screen.height * 2/3;
@@ -50,7 +66,6 @@ public class DialogBox : MonoBehaviour
 			Rect dialogRect = new Rect (xPosition, yPosition, boxWidth, boxHeight);
 
 			// Add Style to use --> to skin the dialog box later for polish
-
 
 
 			// show one char at a time
@@ -63,6 +78,21 @@ public class DialogBox : MonoBehaviour
 			fontStyle.fontSize = 25;
 
 			dialogStringToShow = GUI.TextField(dialogRect, dialogStringToShow, fontStyle);
+
+			//Use for button overlays
+			switch (dialogType) {
+			case DialogType.CANCELLABLE:
+				GUI.DrawTexture(new Rect(boxWidth - 32, yPosition - 32, 64, 64), b_button, ScaleMode.ScaleToFit, true, 0);
+				break;
+				
+			case DialogType.ACCEPT_DECLINE:
+				
+				break;
+				
+			case DialogType.NEXT:
+				
+				break;
+			}
 		}
 	}
 
@@ -88,7 +118,6 @@ public class DialogBox : MonoBehaviour
 	void activateDialogBox()
 	{
 		openDialogBox = true;
-		dialogDisplayTime = Time.time + 100.0f; //denotes 100 seconds in the future
 	}
 
 	void disableDialogBox()
