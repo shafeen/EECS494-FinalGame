@@ -20,7 +20,8 @@ public class DialogBox : MonoBehaviour
 	public enum DialogType {
 		CANCELLABLE,
 		ACCEPT_DECLINE,
-		NEXT };
+		NEXT,
+		NO_BUTTON};
 
 	public DialogType dialogType;
 
@@ -84,39 +85,28 @@ public class DialogBox : MonoBehaviour
 			//Use for button overlays
 			switch (dialogType) {
 			case DialogType.CANCELLABLE:
-				GUI.DrawTexture(new Rect(xPosition + 4, yPosition + boxHeight - 54, 50, 50), b_button, ScaleMode.ScaleToFit, true, 0);
+				//DECLINE BUTTONS
+				GUI.DrawTexture(new Rect(boxWidth + xPosition - 104, yPosition + boxHeight - 54, 50, 50), right_mouse, ScaleMode.ScaleToFit, true, 0);
+				GUI.DrawTexture(new Rect(boxWidth + xPosition - 54, yPosition + boxHeight - 54, 50, 50), b_button, ScaleMode.ScaleToFit, true, 0);
 				break;
 				
 			case DialogType.ACCEPT_DECLINE:
-				GUI.DrawTexture(new Rect(xPosition + 4, yPosition + boxHeight - 54, 50, 50), b_button, ScaleMode.ScaleToFit, true, 0);
-				GUI.DrawTexture(new Rect(boxWidth + xPosition - 54, yPosition + boxHeight - 54, 50, 50), a_button, ScaleMode.ScaleToFit, true, 0);
+				//DECLINE BUTTONS
+				GUI.DrawTexture(new Rect(boxWidth + xPosition - 104, yPosition + boxHeight - 54, 50, 50), right_mouse, ScaleMode.ScaleToFit, true, 0);
+				GUI.DrawTexture(new Rect(boxWidth + xPosition - 54, yPosition + boxHeight - 54, 50, 50), b_button, ScaleMode.ScaleToFit, true, 0);
 
+				//ACCEPT BUTTONS
+				GUI.DrawTexture(new Rect(xPosition + 54, yPosition + boxHeight - 54, 50, 50), a_button, ScaleMode.ScaleToFit, true, 0);
+				GUI.DrawTexture(new Rect(xPosition + 4, yPosition + boxHeight - 54, 50, 50), left_mouse, ScaleMode.ScaleToFit, true, 0);
 				break;
 				
 			case DialogType.NEXT:
-				GUI.DrawTexture(new Rect(boxWidth + xPosition - 54, yPosition + boxHeight - 54, 50, 50), a_button, ScaleMode.ScaleToFit, true, 0);
+				//ACCEPT BUTTONS
+				GUI.DrawTexture(new Rect(xPosition + 54, yPosition + boxHeight - 54, 50, 50), a_button, ScaleMode.ScaleToFit, true, 0);
+				GUI.DrawTexture(new Rect(xPosition + 4, yPosition + boxHeight - 54, 50, 50), left_mouse, ScaleMode.ScaleToFit, true, 0);
 				break;
 			}
 		}
-	}
-
-
-
-
-
-	void OnTriggerEnter(Collider noOneCaresSeriously)
-	{
-		// disable this if just using the C# property to activate
-		//activateDialogBox ();
-	}
-
-
-	void OnTriggerExit(Collider col) {
-		disableDialogBox();
-	}
-
-	void OnCollisionEnter(Collision col) {
-		//activateDialogBox ();
 	}
 
 	void activateDialogBox()

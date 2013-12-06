@@ -29,8 +29,8 @@ public class HighlightScript : MonoBehaviour {
 
 	void OnGUI() {
 		if (object_sparkle.active) {
-			GUI.DrawTexture(new Rect(Screen.width / 2 - 20, Screen.height - Screen.height * 0.3f, 64, 64), a_button, ScaleMode.ScaleToFit, true, 0);
-			GUI.DrawTexture(new Rect(Screen.width / 2 + 20, Screen.height - Screen.height * 0.3f, 100, 100), left_click, ScaleMode.ScaleToFit, true, 0);
+			GUI.DrawTexture(new Rect(Screen.width / 2 - 25, Screen.height - Screen.height * 0.2f, 50, 50), a_button, ScaleMode.ScaleToFit, true, 0);
+			GUI.DrawTexture(new Rect(Screen.width / 2 + 25, Screen.height - Screen.height * 0.2f, 50, 50), left_click, ScaleMode.ScaleToFit, true, 0);
 		}
 
 	}
