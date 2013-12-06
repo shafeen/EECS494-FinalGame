@@ -37,24 +37,36 @@ public class MoveCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)){
+		//Get the click to start things off
+		if((Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) && !clicked){
 			Debug.Log("Clicking");
 			click();
 		}
 
 		if (clicked) {
-			time += Time.deltaTime;
-			if (time > lookTime) {
+			if (PlayerResponded()) {
 
 				switch (transition_type) {
 
 					case (TransitionType.SCENE_CHANGE): {
-						if(newLevel!=null) {
-							player_cam.GetComponent<HeadBob>().enabled = true;
-							Application.LoadLevel(newLevel);
+
+						if (Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
+							if(newLevel!=null) {
+								player_cam.GetComponent<HeadBob>().enabled = true;
+								Application.LoadLevel(newLevel);
+							}
+						}
+
+						if (Input.GetButtonDown("B_1") || Input.GetMouseButtonDown(1)) {
+							clicked = false;
+							player.GetComponent<EnablePlayerInput>().EnableInput();
+							player_cam.transform.position = player_position.transform.position;
+							player_cam.transform.rotation = player_position.transform.rotation;
 						}
 						break;
 					}
+
+
 					case (TransitionType.INSPECT): {
 						player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, player_position.transform.rotation, rotMultiplier * Time.deltaTime);
 						player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, player_position.transform.position, posMultiplier * Time.deltaTime);
@@ -74,12 +86,9 @@ public class MoveCamera : MonoBehaviour {
 
 				}
 
-			}
-
-			else {
-				player.GetComponent<DisablePlayerInput>().DisableInput();
-				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, object_cam.transform.rotation, rotMultiplier * Time.deltaTime);
-				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, object_cam.transform.position, posMultiplier * Time.deltaTime);
+			} else {
+//				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, object_cam.transform.rotation, rotMultiplier * Time.deltaTime);
+//				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, object_cam.transform.position, posMultiplier * Time.deltaTime);
 			}
 		}
 
@@ -88,8 +97,45 @@ public class MoveCamera : MonoBehaviour {
 	void click() {
 		if (transform.FindChild("Object_Highlight").gameObject.GetComponent<Light>().enabled) {
 			clicked = true;
-			time = 0;
 			player_position.transform.rotation = player_cam.transform.rotation;
+			player.GetComponent<DisablePlayerInput>().DisableInput();
+			StartCoroutine("MoveCameraToObject");
 		}
 	}
+
+	IEnumerator MoveCameraToObject() {
+		while ((player_cam.transform.position - object_cam.transform.position).magnitude > 0.05) {
+			player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, object_cam.transform.rotation, rotMultiplier * Time.deltaTime);
+			player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, object_cam.transform.position, posMultiplier * Time.deltaTime);
+			yield return null;
+		}
+	}
+
+	bool PlayerResponded() {
+
+		switch (transition_type) {
+
+		case TransitionType.INSPECT:
+			if(Input.GetButtonDown("B_1") || Input.GetMouseButtonDown(1)) {
+				return true;
+			}
+			return false;
+			break;
+
+		case TransitionType.SCENE_CHANGE:
+			if(Input.GetButtonDown("A_1") || Input.GetButtonDown("B_1")
+			    || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) {
+				return true;
+			}
+			return false;
+			break;
+		
+		default:
+			return false;
+			break;
+		}
+	
+	}
+
+
 }
