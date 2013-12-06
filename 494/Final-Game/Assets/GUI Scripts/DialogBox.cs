@@ -39,6 +39,8 @@ public class DialogBox : MonoBehaviour
 	private float yPosition;	
 	private float boxWidth;
 	private float boxHeight;
+	private float yPadding = 20.0f;
+	private float xPadding = 20.0f;
 	private GUIStyle fontStyle;
 
 	// Use this for initialization
@@ -61,7 +63,7 @@ public class DialogBox : MonoBehaviour
 			xPosition = Screen.width  * 1/8;
 			yPosition = Screen.height * 2/3;
 			boxWidth  = Screen.width  * 3/4;
-			boxHeight = Screen.height * 1/3;
+			boxHeight = Screen.height * 1/3 - yPadding;
 
 			Rect dialogRect = new Rect (xPosition, yPosition, boxWidth, boxHeight);
 
@@ -82,15 +84,17 @@ public class DialogBox : MonoBehaviour
 			//Use for button overlays
 			switch (dialogType) {
 			case DialogType.CANCELLABLE:
-				GUI.DrawTexture(new Rect(boxWidth - 32, yPosition - 32, 64, 64), b_button, ScaleMode.ScaleToFit, true, 0);
+				GUI.DrawTexture(new Rect(xPosition + 4, yPosition + boxHeight - 54, 50, 50), b_button, ScaleMode.ScaleToFit, true, 0);
 				break;
 				
 			case DialogType.ACCEPT_DECLINE:
-				
+				GUI.DrawTexture(new Rect(xPosition + 4, yPosition + boxHeight - 54, 50, 50), b_button, ScaleMode.ScaleToFit, true, 0);
+				GUI.DrawTexture(new Rect(boxWidth + xPosition - 54, yPosition + boxHeight - 54, 50, 50), a_button, ScaleMode.ScaleToFit, true, 0);
+
 				break;
 				
 			case DialogType.NEXT:
-				
+				GUI.DrawTexture(new Rect(boxWidth + xPosition - 54, yPosition + boxHeight - 54, 50, 50), a_button, ScaleMode.ScaleToFit, true, 0);
 				break;
 			}
 		}
@@ -103,7 +107,7 @@ public class DialogBox : MonoBehaviour
 	void OnTriggerEnter(Collider noOneCaresSeriously)
 	{
 		// disable this if just using the C# property to activate
-		activateDialogBox ();
+		//activateDialogBox ();
 	}
 
 
@@ -112,7 +116,7 @@ public class DialogBox : MonoBehaviour
 	}
 
 	void OnCollisionEnter(Collision col) {
-		activateDialogBox ();
+		//activateDialogBox ();
 	}
 
 	void activateDialogBox()

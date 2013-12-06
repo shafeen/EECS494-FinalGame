@@ -8,23 +8,19 @@ public class MoveCamera : MonoBehaviour {
 		INSPECT }
 
 	public TransitionType transition_type;
-
+	public DialogBox dialogBox;
 	public string newLevel;
-	private GameObject player_cam;
 
+	private GameObject player_cam;
 	private GameObject object_cam;
 	private GameObject player;
 	private GameObject player_position;
-	private float time;
 	private bool clicked = false;
-	private bool activated = false;
+	private bool locked = false;
 
 	private int posMultiplier = 3;
 	private int rotMultiplier = 3;
-	public float lookTime;
 	private Vector3 fwd;
-	private RaycastHit hit;
-	public float activateDistance = 15;
 
 	// Use this for initialization
 	void Start () {
@@ -37,61 +33,35 @@ public class MoveCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//Get the click to start things off
-		if((Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) && !clicked){
-			Debug.Log("Clicking");
-			click();
-		}
+		if (!locked) {
 
-		if (clicked) {
-			if (PlayerResponded()) {
-
-				switch (transition_type) {
-
-					case (TransitionType.SCENE_CHANGE): {
-
+			if (clicked) {
+				
+				//If the player has responded, we'll do one of two things, this is the last time we run this loop
+				if (PlayerResponded()) {
+					clicked = false;
+					dialogBox.ShowDialog = false;
+					if (transition_type == TransitionType.SCENE_CHANGE) {
 						if (Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
 							if(newLevel!=null) {
 								player_cam.GetComponent<HeadBob>().enabled = true;
 								Application.LoadLevel(newLevel);
 							}
 						}
-
-						if (Input.GetButtonDown("B_1") || Input.GetMouseButtonDown(1)) {
-							clicked = false;
-							player.GetComponent<EnablePlayerInput>().EnableInput();
-							player_cam.transform.position = player_position.transform.position;
-							player_cam.transform.rotation = player_position.transform.rotation;
-						}
-						break;
 					}
-
-
-					case (TransitionType.INSPECT): {
-						player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, player_position.transform.rotation, rotMultiplier * Time.deltaTime);
-						player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, player_position.transform.position, posMultiplier * Time.deltaTime);
-						
-						if((player_cam.transform.position - player_position.transform.position).magnitude < 0.01){
-							clicked = false;
-							player.GetComponent<EnablePlayerInput>().EnableInput();
-							player_cam.transform.position = player_position.transform.position;
-							player_cam.transform.rotation = player_position.transform.rotation;
-						}
-						break;
+					
+					if (Input.GetButtonDown("B_1") || Input.GetMouseButtonDown(1)) {
+						StartCoroutine("MoveCameraToPlayer");
 					}
-
-					default:
-
-						break;
-
 				}
+			}
 
-			} else {
-//				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, object_cam.transform.rotation, rotMultiplier * Time.deltaTime);
-//				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, object_cam.transform.position, posMultiplier * Time.deltaTime);
+			//Get the click to start things off
+			if((Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) && !clicked){
+				Debug.Log("Clicking");
+				click();
 			}
 		}
-
 	}
 
 	void click() {
@@ -104,11 +74,27 @@ public class MoveCamera : MonoBehaviour {
 	}
 
 	IEnumerator MoveCameraToObject() {
+		locked = true;
 		while ((player_cam.transform.position - object_cam.transform.position).magnitude > 0.05) {
 			player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, object_cam.transform.rotation, rotMultiplier * Time.deltaTime);
 			player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, object_cam.transform.position, posMultiplier * Time.deltaTime);
 			yield return null;
 		}
+		dialogBox.ShowDialog = true;
+		locked = false;
+	}
+
+	IEnumerator MoveCameraToPlayer() {
+		locked = true;
+		while ((player_cam.transform.position - player_position.transform.position).magnitude > 0.01){
+			player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, player_position.transform.rotation, rotMultiplier * Time.deltaTime);
+			player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, player_position.transform.position, posMultiplier * Time.deltaTime);
+			yield return null;
+		}
+		player.GetComponent<EnablePlayerInput>().EnableInput();
+		player_cam.transform.position = player_position.transform.position;
+		player_cam.transform.rotation = player_position.transform.rotation;
+		locked = false;
 	}
 
 	bool PlayerResponded() {
