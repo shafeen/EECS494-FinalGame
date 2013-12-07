@@ -44,7 +44,7 @@ public class MonsterSparkScript : MonoBehaviour {
 
 	IEnumerator Flash(GameObject light) {
 		inFlash = true;
-		yield return new WaitForSeconds(Random.Range(0.3f, 1.0f));
+		yield return new WaitForSeconds(Random.Range(0.3f, 0.8f));
 		light.active = true;
 		yield return new WaitForSeconds(0.05f);
 		light.active = false;
