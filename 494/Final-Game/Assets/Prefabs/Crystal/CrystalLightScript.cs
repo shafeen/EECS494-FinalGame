@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CrystalLightScript : MonoBehaviour {
 
+	private AudioSource[] audios;
+
 	public enum LIGHT_COLOR {
 		RED,
 		BLUE,
@@ -35,10 +37,13 @@ public class CrystalLightScript : MonoBehaviour {
 	void Start () {
 		crystal_light = transform.GetChild(0).GetComponent<Light>();
 		crystal_light.intensity = 0.4f;
+		audios = GetComponents<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		audios[0].volume = crystal_light.intensity / (max_light_intensity - min_light_intensity);
 
 		//The only difference between being charged by the flashlight and by another crystal, is that
 		//the flashlight will reset your max brightness to the full allowed
