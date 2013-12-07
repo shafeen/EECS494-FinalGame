@@ -15,7 +15,7 @@ public class KillTorches : MonoBehaviour {
 	private float time = 0.0f;
 	private bool start_scene = false;
 	private bool fade_out = false;
-	private string newLevel = "Great Hall Level";
+	private string newLevel = "Crystal_To_Crystal_Puzzle";
 
 	// Use this for initialization
 	void Start () {
