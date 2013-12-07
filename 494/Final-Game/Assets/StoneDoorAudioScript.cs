@@ -3,11 +3,17 @@ using System.Collections;
 
 public class StoneDoorAudioScript : MonoBehaviour {
 
+	AudioSource[] audios;
+
+	void Start() {
+		audios = GetComponents<AudioSource>();
+	}
+
 	void PlaySound() {
-		audio.Play();
+		audios[1].Play();
 	}
 
 	void StopSound() {
-		audio.Stop();
+		audios[1].Stop();
 	}
 }

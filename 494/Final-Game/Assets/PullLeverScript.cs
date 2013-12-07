@@ -28,6 +28,7 @@ public class PullLeverScript : MonoBehaviour {
 		if (!pulled && transform.FindChild("Object_Highlight").gameObject.GetComponent<Light>().enabled) {
 			handle.animation.Play("Pull Lever Down");
 			portcullis.FindChild("Portcullis Model").animation.Play("Raise Portcullis");
+			portcullis.FindChild("Portcullis Model").audio.Play();
 			pulled = true;
 		}
 	}
