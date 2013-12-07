@@ -35,7 +35,7 @@ public class InitializeBedroomScene : MonoBehaviour {
 		time += Time.deltaTime;
 
 		// enable player movement
-		player.GetComponent<EnablePlayerInput>().EnableInput();
+		//player.GetComponent<EnablePlayerInput>().EnableInput();
 
 		// perform animation control loop if animation is not finished playing
 		if (!finished) {
@@ -84,6 +84,8 @@ public class InitializeBedroomScene : MonoBehaviour {
 			if (!player.animation.isPlaying &&
 			    time > cinematic.length) {
 				finished = true;
+				player.GetComponent<EnablePlayerInput>().EnableInput();
+				Destroy(gameObject);
 			}
 		}
 	}
