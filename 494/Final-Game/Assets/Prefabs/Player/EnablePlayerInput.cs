@@ -10,11 +10,6 @@ public class EnablePlayerInput : MonoBehaviour {
 		player = GameObject.FindWithTag("Player");
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public void EnableInput() {
 		player.GetComponent<MouseLook>().enabled = true;

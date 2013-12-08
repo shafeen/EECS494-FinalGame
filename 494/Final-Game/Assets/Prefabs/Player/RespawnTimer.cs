@@ -19,6 +19,7 @@ public class RespawnTimer : MonoBehaviour {
 	}
 	void Start() {
 		time = 0;
+		startTimer();
 	}
 	// Update is called once per frame
 	void Update () {
@@ -30,7 +31,6 @@ public class RespawnTimer : MonoBehaviour {
 		if(time > timeLimit){
 			transform.position = respawnLocation.position;
 			transform.rotation = respawnLocation.rotation;
-			run = false;
 			resetTimer();
 		}
 	}

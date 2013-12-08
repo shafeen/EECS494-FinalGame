@@ -67,6 +67,7 @@ public class cutScene : MonoBehaviour {
 				break;
 		}
 	}
+
 	void OnTriggerEnter(Collider other){
 		if (other.tag == "Player" && focusObject && focusObject.active) {
 			SetFocusRotation();
@@ -75,6 +76,14 @@ public class cutScene : MonoBehaviour {
 			isColliding = true;
 			player.GetComponent<DisablePlayerInput>().DisableInput();
 		}
+	}
+
+	public void Activate() {
+		SetFocusRotation();
+		
+		time = 0;
+		isColliding = true;
+		player.GetComponent<DisablePlayerInput>().DisableInput();
 	}
 
 	void SetFocusRotation() {
