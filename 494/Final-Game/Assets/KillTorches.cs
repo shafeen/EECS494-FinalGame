@@ -12,6 +12,9 @@ public class KillTorches : MonoBehaviour {
 	private SceneCue sceneCue;
 
 	public TorchSet[] torchSets;
+	public Texture2D fadeTexture;
+	public float fade_time = 1.0f;
+	public float fade_amt = 0.0f;
 	private float time = 0.0f;
 	private bool start_scene = false;
 	private bool fade_out = false;
@@ -29,6 +32,7 @@ public class KillTorches : MonoBehaviour {
 			StartCoroutine("PutOutTorches");
 		} else if (sceneCue == SceneCue.FADE_WIND) {
 			StartCoroutine("FadeOut");
+			StartCoroutine("FadeToBlack");
 		} else if (sceneCue == SceneCue.SCENE_CHANGE) {
 			StartCoroutine("SceneChange");
 		}
@@ -67,6 +71,13 @@ public class KillTorches : MonoBehaviour {
 		sceneCue = SceneCue.SCENE_CHANGE;
 	}
 
+	IEnumerator FadeToBlack() {
+		while (fade_amt < fade_time) {
+			fade_amt += Time.deltaTime;
+			yield return null;
+		}
+	}
+
 	IEnumerator SceneChange() { 
 		yield return new WaitForSeconds(5.0f);
 		Application.LoadLevel(newLevel);
@@ -77,5 +88,19 @@ public class KillTorches : MonoBehaviour {
 
 		public Transform[] torches;
 		public float delay;
+	}
+
+	void OnGUI() {
+		float alpha = fade_amt / fade_time;
+
+		Color color = GUI.color;
+
+		color.a = alpha;
+
+		GUI.color = color;
+
+		GUI.depth = -1000;
+
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeTexture);
 	}
 }
