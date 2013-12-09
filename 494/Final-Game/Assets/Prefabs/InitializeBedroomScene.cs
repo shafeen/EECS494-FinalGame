@@ -9,6 +9,8 @@ public class InitializeBedroomScene : MonoBehaviour {
 
 	private GameObject player;
 	private GameObject door;
+
+	private bool showedInitialDialog = false;
 	
 	AnimationState cinematic;
 	private float speed = 1.0f;
@@ -32,16 +34,21 @@ public class InitializeBedroomScene : MonoBehaviour {
 	void Start () {
 		// start scene with bedroom door open
 		door.GetComponent<OperateRoomDoor>().SetToOpen();
-		// set the opening dialog
-		GetComponent<DialogBox>().dialogString = "\"Time out! Go to your room and don't come out for five minutes.\"";
-		// start dialog in the beginning of the scene
-		GetComponent<DialogBox>().ShowDialog = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//update time
 		time += Time.deltaTime;
+
+		// start dialog at beginning of scene
+		if(!showedInitialDialog) {
+			showedInitialDialog = true;
+			// set the opening dialog
+			GetComponent<DialogBox>().dialogString = "\"Time out! Go to your room and don't come out for five minutes.\"";
+			// start dialog in the beginning of the scene
+			GetComponent<DialogBox>().ShowDialog = true;
+		}
 
 		// perform animation control loop if animation is not finished playing
 		if(!finished) {
