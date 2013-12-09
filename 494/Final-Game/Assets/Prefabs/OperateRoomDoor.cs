@@ -9,6 +9,7 @@ public class OperateRoomDoor : MonoBehaviour {
 	private bool isClosed = true;
 	private bool open = false;
 	private bool close = false;
+	private bool moving = false;
 
 	// Run as the scene is initializing
 	void Awake() {
@@ -22,20 +23,30 @@ public class OperateRoomDoor : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
+		// open the door
 		if(open) {
 			if(transform.eulerAngles.y > openedEulerAngleY) {
 				transform.Rotate(Vector3.forward, -turnSpeed * Time.deltaTime);
 			} else {
+				if(moving) {
+					moving = false;
+					SetToOpen();
+				}
 				open = false;
 				isOpen = true;
 				isClosed = false;
 			}
 		}
 
+		// close the door
 		if(close) {
 			if(transform.eulerAngles.y < closedEulerAngleY) {
 				transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
 			} else {
+				if(moving) {
+					moving = false;
+					SetToClose();
+				}
 				close = false;
 				isClosed = true;
 				isOpen = false;
@@ -53,10 +64,12 @@ public class OperateRoomDoor : MonoBehaviour {
 
 	public void OpenDoor() {
 		open = true;
+		moving = true;
 	}
 
 	public void CloseDoor() {
 		close = true;
+		moving = true;
 	}
 
 	public void SetToOpen() {
