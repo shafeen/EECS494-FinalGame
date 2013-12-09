@@ -44,6 +44,8 @@ public class DialogBox : MonoBehaviour
 	private float xPadding = 20.0f;
 	private GUIStyle fontStyle;
 
+	private bool setFontStyle = false;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -51,13 +53,19 @@ public class DialogBox : MonoBehaviour
 		dialogStringToShow = "";
 		openDialogBox = false;
 
-		fontStyle = new GUIStyle(GUI.skin.button);
-		fontStyle.fontSize = 40;
+		//fontStyle = new GUIStyle(GUI.skin.button);
+		//fontStyle.fontSize = 40;
 	}
 	
 	// OnGUI is called once per frame
 	void OnGUI()
 	{
+		// set font style once
+		if(!setFontStyle) {
+			setFontStyle = true;
+			fontStyle = new GUIStyle(GUI.skin.button);
+			fontStyle.fontSize = 40;
+		}
 
 		if (openDialogBox)
 		{
