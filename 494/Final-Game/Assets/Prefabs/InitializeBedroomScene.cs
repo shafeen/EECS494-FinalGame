@@ -29,7 +29,8 @@ public class InitializeBedroomScene : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		// start scene with bedroom door open
+		door.GetComponent<OperateRoomDoor>().SetToOpen();
 	}
 	
 	// Update is called once per frame

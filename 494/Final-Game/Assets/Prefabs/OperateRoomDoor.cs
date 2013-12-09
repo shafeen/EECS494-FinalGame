@@ -12,8 +12,7 @@ public class OperateRoomDoor : MonoBehaviour {
 
 	// Run as the scene is initializing
 	void Awake() {
-		// open bedroom door
-		transform.Rotate(Vector3.forward * (openedEulerAngleY - closedEulerAngleY));
+		
 	}
 
 	// Use this for initialization
@@ -58,5 +57,17 @@ public class OperateRoomDoor : MonoBehaviour {
 
 	public void CloseDoor() {
 		close = true;
+	}
+
+	public void SetToOpen() {
+		transform.eulerAngles = new Vector3(transform.eulerAngles.x, 
+																				openedEulerAngleY, 
+																				transform.eulerAngles.z);
+	}
+
+	public void SetToClose() {
+		transform.eulerAngles = new Vector3(transform.eulerAngles.x, 
+																				closedEulerAngleY, 
+																				transform.eulerAngles.z);
 	}
 }
