@@ -4,6 +4,7 @@ using System.Collections;
 public class InitializeBedroomScene : MonoBehaviour {
 	private float time = 0.0f;
 	private float time_unpause = 0.0f;
+	private float beginningPauseLength = 4.5f;
 	private float pauseLength = 1.0f;
 
 	private GameObject player;
@@ -31,6 +32,10 @@ public class InitializeBedroomScene : MonoBehaviour {
 	void Start () {
 		// start scene with bedroom door open
 		door.GetComponent<OperateRoomDoor>().SetToOpen();
+		// set the opening dialog
+		GetComponent<DialogBox>().dialogString = "\"Time out! Go to your room and don't come out for five minutes.\"";
+		// start dialog in the beginning of the scene
+		GetComponent<DialogBox>().ShowDialog = true;
 	}
 	
 	// Update is called once per frame
@@ -38,14 +43,12 @@ public class InitializeBedroomScene : MonoBehaviour {
 		//update time
 		time += Time.deltaTime;
 
-		// enable player movement
-		//player.GetComponent<EnablePlayerInput>().EnableInput();
-
 		// perform animation control loop if animation is not finished playing
 		if(!finished) {
 			// start animation after a certain period of time
-			if(!playing && time >= pauseLength) {
+			if(!playing && time >= beginningPauseLength) {
 				playing = true;
+				GetComponent<DialogBox>().ShowDialog = false;
 				player.animation.Play("Beginning_Cinematic");
 			}
 
@@ -66,6 +69,11 @@ public class InitializeBedroomScene : MonoBehaviour {
 					paused = true;
 					time_unpause = time + pauseLength;
 					cinematic.speed = 0.0f;
+
+					// start child dialogue
+					GetComponent<DialogBox>().ResetString();
+					GetComponent<DialogBox>().dialogString = "Aw man...";
+					GetComponent<DialogBox>().ShowDialog = true;
 				}
 				// unpause animation after looking at the clock
 				if(paused && time >= time_unpause) {
@@ -87,6 +95,9 @@ public class InitializeBedroomScene : MonoBehaviour {
 					paused = false;
 					performedFloorPause = true;
 					cinematic.speed = speed;
+
+					// end child dialogue
+					GetComponent<DialogBox>().ShowDialog = false;
 				}
 			}
 

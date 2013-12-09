@@ -130,5 +130,8 @@ public class DialogBox : MonoBehaviour
 				disableDialogBox();
 		}
 	}
-	                  
+
+	public void ResetString() {
+		dialogStringToShow = "";
+	}             
 }
