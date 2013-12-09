@@ -10,7 +10,7 @@ public class cutScene : MonoBehaviour {
 
 	private GameObject player;
 	private GameObject player_cam;
-	private bool isColliding;
+	private bool isColliding = false;
 	private float time;
 	private Quaternion focusRotation;
 	private Quaternion focusMouselookRotation;
@@ -43,28 +43,29 @@ public class cutScene : MonoBehaviour {
 			}
 			player.transform.rotation = Quaternion.Lerp (player.transform.rotation, focusRotation, multiplier * Time.deltaTime);
 			player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, focusMouselookRotation, multiplier * Time.deltaTime);
-		}
-		switch (cutsceneType) {
-			case CUTSCENETYPES.lookAt:
-				if(Quaternion.Angle(focusRotation, player.transform.rotation) < 5){
-					isColliding = false;
-					player.GetComponent<EnablePlayerInput>().EnableInput();
-				}
-				break;
+		
+			switch (cutsceneType) {
+				case CUTSCENETYPES.lookAt:
+					if(Quaternion.Angle(focusRotation, player.transform.rotation) < 5){
+						isColliding = false;
+						player.GetComponent<EnablePlayerInput>().EnableInput();
+					}
+					break;
 
-			case CUTSCENETYPES.track:
-			if (time > cutsceneLength) {
-				isColliding = false;
-				player.GetComponent<EnablePlayerInput>().EnableInput();
-			}
-			break;
-
-			case CUTSCENETYPES.timedCut:
+				case CUTSCENETYPES.track:
 				if (time > cutsceneLength) {
 					isColliding = false;
 					player.GetComponent<EnablePlayerInput>().EnableInput();
 				}
 				break;
+
+				case CUTSCENETYPES.timedCut:
+					if (time > cutsceneLength) {
+						isColliding = false;
+						player.GetComponent<EnablePlayerInput>().EnableInput();
+					}
+					break;
+			}
 		}
 	}
 

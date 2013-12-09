@@ -7,8 +7,8 @@ public class DisablePlayerInput : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindWithTag("Player");
-		player_cam = player.transform.FindChild("Player_Cam").gameObject;
+//		player = GameObject.FindWithTag("Player");
+//		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -17,11 +17,12 @@ public class DisablePlayerInput : MonoBehaviour {
 	}
 
 	public void DisableInput() {
-		player.GetComponent<MouseLook>().enabled = false;
-		player_cam.GetComponent<MouseLook>().enabled = false;
-		player.GetComponent<CharacterMotor>().canControl = false;
-		player.GetComponent<FPSInputController>().enabled = false;
-		player_cam.GetComponent<HeadBob>().enabled = false;
-		player_cam.GetComponent<CheckInspectRange>().enabled = false;
+		Debug.Log("Disable Input");
+		gameObject.GetComponent<MouseLook>().enabled = false;
+		transform.Find("Player_Cam").gameObject.GetComponent<MouseLook>().enabled = false;
+		gameObject.GetComponent<CharacterMotor>().canControl = false;
+		gameObject.GetComponent<FPSInputController>().enabled = false;
+		transform.Find("Player_Cam").gameObject.GetComponent<HeadBob>().enabled = false;
+		transform.Find("Player_Cam").gameObject.GetComponent<CheckInspectRange>().enabled = false;
 	}
 }

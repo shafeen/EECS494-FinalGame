@@ -12,6 +12,7 @@ public class EnablePlayerInput : MonoBehaviour {
 	}
 
 	public void EnableInput() {
+		Debug.Log("Enable Input");
 		player.GetComponent<MouseLook>().enabled = true;
 		player_cam.GetComponent<MouseLook>().enabled = true;
 		player.GetComponent<CharacterMotor>().canControl = true;
