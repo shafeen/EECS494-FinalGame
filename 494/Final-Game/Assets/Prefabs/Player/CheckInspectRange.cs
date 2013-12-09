@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CheckInspectRange : MonoBehaviour {
-	private float ray_range = 3.0f;
+	private float ray_range = 4.0f;
 	private Transform flashlight;
 	// Use this for initialization
 	void Start () {
