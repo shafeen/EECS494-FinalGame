@@ -29,7 +29,7 @@ public class RespawnTimer : MonoBehaviour {
 			time += Time.deltaTime;
 		}
 
-		if(time > timeLimit){
+		if(time > timeLimit && respawnLocation){
 			InformRespawn();
 			transform.position = respawnLocation.position;
 			transform.rotation = respawnLocation.rotation;
