@@ -62,18 +62,13 @@ public class WheelTurn : MonoBehaviour {
 		else {
 			steer = 0;
 			torque = 0;
-			if(speed < 0.01) {
-				brake = 0;
-			}
-			else {
-				brake = 1;
-			}
+			brake = 1;
 		}
 		FRColl.steerAngle = side * steer * steer_max;
 		FLColl.steerAngle = side * steer * steer_max;
 		if(speed > 1) {
-			BRColl.motorTorque = torque * torque_max * 2/speed;
-			BLColl.motorTorque = torque * torque_max * 2/speed;
+			BRColl.motorTorque = torque * torque_max * 2.5F/speed;
+			BLColl.motorTorque = torque * torque_max * 2.5F/speed;
 		}
 		else {
 			BRColl.motorTorque = torque * torque_max;
