@@ -12,6 +12,7 @@ public class PushScript : MonoBehaviour {
 	private RespawnTimer respawn;
 	private GameObject handle1;
 	private GameObject handle2;
+	private bool attached = false;
 
 	void Start () {
 		player = GameObject.FindWithTag("Player");
@@ -42,12 +43,23 @@ public class PushScript : MonoBehaviour {
 				handle2.transform.Find("HandleCollider2").gameObject.active = true;
 
 				wheelTurn.deactivate();
+
+				attached = false;
 			}
 			else {
 				attachToCart();
 			}
 		}
+
+		// disable headbob if attached to minecart
+		if(attached) {
+			player_cam.GetComponent<HeadBob>().enabled = false;
+		// enable headbob if not attached to minecart
+		} else {
+			player_cam.GetComponent<HeadBob>().enabled = true;
+		}
 	}
+
 	void attachToCart(){
 		if(Physics.Raycast(player.transform.position, playerFwd, out hit, attachRange)) {
 			//From the front
@@ -66,6 +78,8 @@ public class PushScript : MonoBehaviour {
 					player.GetComponent<CharacterMotor>().enabled = false;
 					player.GetComponent<CharacterMotor>().canControl = false;
 					wheelTurn.activate(-1);
+
+					attached = true;
 				}
 			}
 
@@ -85,6 +99,8 @@ public class PushScript : MonoBehaviour {
 					player.GetComponent<CharacterMotor>().enabled = false;
 					player.GetComponent<CharacterMotor>().canControl = false;
 					wheelTurn.activate(1);
+
+					attached = true;
 				}
 			}
 		}
