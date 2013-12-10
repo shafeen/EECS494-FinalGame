@@ -27,7 +27,7 @@ public class InitializeCaveScene : MonoBehaviour {
 		player_cam = player.transform.FindChild("Player_Cam").gameObject;
 		player_position = player.transform.FindChild("Player_Cam_Position").gameObject;
 
-		inspectable_drawing = GameObject.Find("Inspectable_Drawing");
+		inspectable_drawing = GameObject.Find("Inspectable_Drawing_Level1");
 		object_cam = inspectable_drawing.transform.FindChild("Object_Cam").gameObject;
 		closet_cam = inspectable_drawing.transform.FindChild("Closet_Cam").gameObject;
 
