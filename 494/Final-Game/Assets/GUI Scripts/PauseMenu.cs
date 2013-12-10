@@ -17,10 +17,12 @@ public class PauseMenu : MonoBehaviour {
 			if(paused) {
 				paused = false;
 				Time.timeScale = 1;
+				GameObject.FindWithTag("Player").GetComponent<EnablePlayerInput>().EnableInput();
 			}
 			else {
 				paused = true;
 				Time.timeScale = 0;
+				GameObject.FindWithTag("Player").GetComponent<DisablePlayerInput>().DisableInput();
 			}
 		}	
 	}
@@ -42,6 +44,7 @@ public class PauseMenu : MonoBehaviour {
 
 	void windowFunc(int windowID) {
 		if (GUI.Button(new Rect(pauseMenu.width/2-50, 50, 100, 40), "Back to Menu")) {
+			Time.timeScale = 1;
 			Application.LoadLevel("MainMenu");
 		}
 		if (GUI.Button(new Rect(pauseMenu.width/2-50, 100, 100, 40), "Quit")) {

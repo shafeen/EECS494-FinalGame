@@ -17,7 +17,12 @@ public class MainMenu : MonoBehaviour {
 		GUI.Label (new Rect (Screen.width/2-50, 40+menuTitleOffset, 100, 100), 
 		           "Time Out!", titleStyle);
 		if(GUI.Button(new Rect(Screen.width/2-50,120+menuOptionsOffset,100,30),
-		              "Start", buttonStyle)){
+		              "Start New Game", buttonStyle)){
+			PlayerPrefs.DeleteKey("level1");
+			PlayerPrefs.DeleteKey("level2");
+			PlayerPrefs.DeleteKey("level3");
+			PlayerPrefs.DeleteKey("level4");
+			PlayerPrefs.DeleteKey("level5");
 			Application.LoadLevel("BedroomLevel");
 		}
 		if(GUI.Button(new Rect(Screen.width/2-50,150+1*menuButtonSeparation+menuOptionsOffset,100,30), 
@@ -27,6 +32,12 @@ public class MainMenu : MonoBehaviour {
 		if(GUI.Button(new Rect(Screen.width/2-50,180+2*menuButtonSeparation+menuOptionsOffset,100,30), 
 		              "Quit", buttonStyle)){
 			Application.Quit();
+		}
+
+		if (PlayerPrefs.HasKey("level2")) {
+			if(GUI.Button(new Rect(Screen.width/2-50,250+3*menuOptionsOffset + menuOptionsOffset,100,30), "Resume", buttonStyle)) {
+				Application.LoadLevel("BedroomLevel");
+			}
 		}
 
 	}
