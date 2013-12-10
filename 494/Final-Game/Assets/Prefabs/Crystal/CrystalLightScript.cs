@@ -36,7 +36,7 @@ public class CrystalLightScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		crystal_light = transform.Find("Point light").GetComponent<Light>();
+		crystal_light = transform.GetChild(0).GetComponent<Light>();
 		crystal_light.intensity = 0.4f;
 		audios = GetComponents<AudioSource>();
 	}
@@ -212,7 +212,7 @@ public class CrystalLightScript : MonoBehaviour {
 		foreach(Collider col in colliders) {
 			if (col.tag == "Crystal" && col.gameObject != gameObject) {
 				CrystalLightScript neighbor_crystal = col.transform.GetComponent<CrystalLightScript>();
-				Light neighbor_crystal_light = col.transform.Find("Point light").GetComponent<Light>();
+				Light neighbor_crystal_light = col.transform.GetChild(0).GetComponent<Light>();
 				if (neighbor_crystal_light.intensity < crystal_light.intensity && neighbor_crystal.TestIncomingLight(my_light_color)) {
 					neighbor_crystal.local_max_light_intensity = local_max_light_intensity - neighbor_charge_step;
 				}
