@@ -116,6 +116,8 @@ public class InitializeBedroomScene : MonoBehaviour {
 			    time > cinematic.length) {
 				finished = true;
 				player.GetComponent<EnablePlayerInput>().EnableInput();
+				// disable bedroom door movement
+				door.GetComponent<OperateRoomDoor>().enabled = false;
 				Destroy(gameObject);
 			}
 		}
