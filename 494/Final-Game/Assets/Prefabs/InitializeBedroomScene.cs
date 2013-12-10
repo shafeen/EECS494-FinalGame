@@ -8,7 +8,9 @@ public class InitializeBedroomScene : MonoBehaviour {
 	private float pauseLength = 1.0f;
 
 	private GameObject player;
+
 	private GameObject door;
+	private bool shutDoor = false;
 
 	private bool showedInitialDialog = false;
 	
@@ -66,7 +68,8 @@ public class InitializeBedroomScene : MonoBehaviour {
 
 			// close bedroom door after a set period of time in
 			// the animation
-			if(cinematic.time >= shutBedroomDoor) {
+			if(!shutDoor && cinematic.time >= shutBedroomDoor) {
+				shutDoor = true;
 				door.GetComponent<OperateRoomDoor>().CloseDoor();
 			}
 

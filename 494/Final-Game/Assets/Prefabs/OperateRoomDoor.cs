@@ -7,6 +7,15 @@ public class OperateRoomDoor : MonoBehaviour {
   private float hitRange = 3.0f;
   private RaycastHit hit;
 
+  private string openDoorAnimation = "OpenDoor";
+  private string closeDoorAnimation = "CloseDoor";
+
+  private AnimationState openDoor;
+  private AnimationState closeDoor;
+
+  private float currentTime = 0.0f;
+
+  // OBSOLETE
   private float closedEulerAngleY = 180.0f;
   private float openedEulerAngleY = 45.0f;
   private float turnSpeed = 50.0f;
@@ -18,21 +27,13 @@ public class OperateRoomDoor : MonoBehaviour {
 
   // Run as the scene is initializing
   void Awake() {
-    player = GameObject.FindWithTag("Player");
-    // initialize the angles and turn speed used when closing and opening the 
-    // door from the door's current angles
-    closedEulerAngleY = transform.eulerAngles.y;
-    if(closedEulerAngleY <= 180.0f) {
-      openedEulerAngleY = closedEulerAngleY - 135.0f;
-    } else {
-      openedEulerAngleY = closedEulerAngleY - 235.0f;
-      turnSpeed *= -1.0f;
-    } 
+    openDoor = animation[openDoorAnimation];
+    closeDoor = animation[closeDoorAnimation];
   }
 
   // Use this for initialization
   void Start() {
-
+    player = GameObject.FindWithTag("Player");
   }
   
   // Update is called once per frame
@@ -42,49 +43,20 @@ public class OperateRoomDoor : MonoBehaviour {
 
     // check to see if Player opened or closed the door
     MoveDoor();
-
-    // open the door
-    if(open) {
-      if(transform.eulerAngles.y > openedEulerAngleY) {
-        transform.Rotate(Vector3.forward, -turnSpeed * Time.deltaTime);
-      } else {
-        if(moving) {
-          moving = false;
-          SetToOpen();
-        }
-        open = false;
-        isOpen = true;
-        isClosed = false;
-      }
-    }
-
-    // close the door
-    if(close) {
-      if(transform.eulerAngles.y < closedEulerAngleY) {
-        transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
-      } else {
-        if(moving) {
-          moving = false;
-          SetToClose();
-        }
-        close = false;
-        isClosed = true;
-        isOpen = false;
-      }
-    }
   }
 
   void MoveDoor() {
     if(Physics.Raycast(player.transform.position, playerFwd, out hit, hitRange)) {
       if(hit.collider.gameObject.name == name) {
-        if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
+        if((Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) &&
+            !animation.isPlaying) {
           // close the door if it is open
-          if(isOpen) {
+          if(open) {
+            open = false;
             CloseDoor();
-          }
-
           // open the door if it is closed
-          if(isClosed) {
+          } else {
+            open = true;
             OpenDoor();
           }
         }
@@ -101,24 +73,22 @@ public class OperateRoomDoor : MonoBehaviour {
   }
 
   public void OpenDoor() {
-    open = true;
-    moving = true;
+    openDoor.time = 0.0f;
+    animation.Play(openDoorAnimation);
   }
 
   public void CloseDoor() {
-    close = true;
-    moving = true;
+    closeDoor.time = 0.0f;
+    animation.Play(closeDoorAnimation);
   }
 
   public void SetToOpen() {
-    transform.eulerAngles = new Vector3(transform.eulerAngles.x, 
-                                        openedEulerAngleY, 
-                                        transform.eulerAngles.z);
+    openDoor.time = 1.0f;
+    animation.Play(openDoorAnimation);
   }
 
   public void SetToClose() {
-    transform.eulerAngles = new Vector3(transform.eulerAngles.x, 
-                                        closedEulerAngleY, 
-                                        transform.eulerAngles.z);
+    closeDoor.time = 1.0f;
+    animation.Play(closeDoorAnimation);
   }
 }
