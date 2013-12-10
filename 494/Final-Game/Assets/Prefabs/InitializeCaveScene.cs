@@ -18,10 +18,8 @@ public class InitializeCaveScene : MonoBehaviour {
 	private GameObject object_cam;
 	private GameObject closet_cam;
 
-	private GameObject inspectable_closet_door;
-	private Vector3 closedEulerAngle;
-	private float openedEulerAngleY = 60.0f;
-	private float turnSpeed = 50.0f;
+	private GameObject door;
+	private bool doorPaused = false;
 
 	//Run as the scene is initializing
 	void Awake() {
@@ -33,17 +31,11 @@ public class InitializeCaveScene : MonoBehaviour {
 		object_cam = inspectable_drawing.transform.FindChild("Object_Cam").gameObject;
 		closet_cam = inspectable_drawing.transform.FindChild("Closet_Cam").gameObject;
 
-		inspectable_closet_door = GameObject.Find("Inspectable_Closet_Door");
-		closedEulerAngle = inspectable_closet_door.transform.eulerAngles;
+		door = GameObject.Find("Inspectable_Closet_Door");
 	}
 
 	// Use this for initialization
 	void Start () {
-		// open the closet door for the monster scene
-		while((inspectable_closet_door.transform.eulerAngles.y - closedEulerAngle.y) < openedEulerAngleY) {
-			inspectable_closet_door.transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
-		}
-
 		GameObject.FindWithTag("Monster").animation.Play("Steal Bear");
 		GameObject.FindWithTag("Teddy").animation.Play("Kidnapped");
 	}
@@ -55,10 +47,20 @@ public class InitializeCaveScene : MonoBehaviour {
 			if (starting) {
 				player_cam.transform.position = object_cam.transform.position;
 				player_cam.transform.rotation = object_cam.transform.rotation;
+
+				// open the closet door for the monster scene
+				door.GetComponent<OperateRoomDoor>().OpenDoor();
 				starting = false;
 			}
 
 			time += Time.deltaTime;
+
+			// pause the door after it opens halfway
+			if (!doorPaused && time >= 0.5f) {
+				doorPaused = true;
+				door.GetComponent<OperateRoomDoor>().PauseOpeningDoor();
+			}
+
 			if (time > lookTime) {
 				player_cam.transform.rotation = Quaternion.Lerp (player_cam.transform.rotation, player_position.transform.rotation, rotMultiplier * Time.deltaTime);
 				player_cam.transform.position = Vector3.Lerp (player_cam.transform.position, player_position.transform.position, posMultiplier * Time.deltaTime);
