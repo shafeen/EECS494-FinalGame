@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class RespawnTimer : MonoBehaviour {
+	public GameObject[] listeners;
 	private float time;
 	public float timeLimit = 10;
 	public Transform respawnLocation;
@@ -29,6 +30,7 @@ public class RespawnTimer : MonoBehaviour {
 		}
 
 		if(time > timeLimit){
+			InformRespawn();
 			transform.position = respawnLocation.position;
 			transform.rotation = respawnLocation.rotation;
 			resetTimer();
@@ -51,5 +53,16 @@ public class RespawnTimer : MonoBehaviour {
 	}
 	public void resetTimer(){
 		time = 0.0f;
+	}	
+
+	void InformRespawn() {
+		foreach (GameObject o in listeners) {
+			IRespawn ir = (IRespawn) o.GetComponent(typeof(IRespawn));
+			//o = (IRespawn)GetComponent(typeof(IRespawn));
+			if (ir != null) {
+				Debug.Log("Calling Respawn on listener");
+				ir.Respawn();
+			}
+		}
 	}
 }
