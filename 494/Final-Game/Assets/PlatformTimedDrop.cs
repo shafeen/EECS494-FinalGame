@@ -15,7 +15,6 @@ public class PlatformTimedDrop : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-
 		if (countdownStart) 
 		{	
 			if((Time.time - startTime) > dropDelay && !done) {
@@ -23,13 +22,6 @@ public class PlatformTimedDrop : MonoBehaviour {
 				transform.parent.rigidbody.AddTorque(new Vector3(randomNum()*Random.Range(30F,100F), randomNum()*Random.Range(30F,50F), randomNum()*Random.Range(30F,100F)));
 				fire.enableEmission = false;
 				done = true;
-			}
-			else if((Time.time - startTime) > (dropDelay - 2.5) && !transform.parent.rigidbody.useGravity) {
-				fire.startColor = Color.blue;
-				fire.emissionRate = 90;
-				fire.startSpeed = 5;
-				fire.startLifetime = 2.5F;
-				fire.simulationSpace = ParticleSystemSimulationSpace.World;
 			}
 		}
 
@@ -43,6 +35,11 @@ public class PlatformTimedDrop : MonoBehaviour {
 			{
 				countdownStart = true;
 				startTime = Time.time;
+				fire.startColor = Color.blue;
+				fire.emissionRate = 90;
+				fire.startSpeed = 5;
+				fire.startLifetime = 2.5F;
+				fire.simulationSpace = ParticleSystemSimulationSpace.World;
 			}
 		}
 	}
