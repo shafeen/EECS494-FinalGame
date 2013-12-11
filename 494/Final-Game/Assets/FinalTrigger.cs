@@ -10,7 +10,8 @@ public class FinalTrigger : MonoBehaviour {
 		START,
 		PUT_OUT_TORCHES,
 		GRAB_TEDDY,
-		EXPLOSION };
+		EXPLOSION,
+		END };
 	
 	private SceneCue sceneCue;
 	
