@@ -10,7 +10,7 @@ public class FinalTrigger : MonoBehaviour {
 		START,
 		PUT_OUT_TORCHES,
 		GRAB_TEDDY,
-		END };
+		EXPLOSION };
 	
 	private SceneCue sceneCue;
 	
@@ -27,6 +27,8 @@ public class FinalTrigger : MonoBehaviour {
 			StartCoroutine("PutOutTorches");
 		} else if (sceneCue == SceneCue.GRAB_TEDDY) {
 			StartCoroutine("FlyAround");
+		} else if (sceneCue = SceneCue.EXPLOSION) {
+			StartCoroutine("ExplodeCrystals");
 		}
 	}
 
@@ -40,9 +42,6 @@ public class FinalTrigger : MonoBehaviour {
 				torch.FindChild("Fire").gameObject.active = false;
 			}
 		}
-//		while (GameObject.FindWithTag("Monster").animation.IsPlaying("grab_teddy") && GameObject.FindWithTag("Teddy").animation.IsPlaying("fly_up")) {
-//			yield return null;
-//		}
 		sceneCue = SceneCue.GRAB_TEDDY;
 		Debug.Log("Done with torches");
 	}
@@ -50,13 +49,18 @@ public class FinalTrigger : MonoBehaviour {
 	IEnumerator FlyAround() {
 		sceneCue = SceneCue.WAIT;
 		while (sceneCue == SceneCue.WAIT) {
-//			GameObject.FindWithTag("Monster").animation.wrapMode = WrapMode.Loop;
-//			GameObject.FindWithTag("Teddy").animation.wrapMode = WrapMode.Loop;
-			GameObject.FindWithTag("Monster").animation.Play("fly_around_monster");
-			yield return new WaitForSeconds(1.0f);
+			if (GameObject.FindWithTag("Monster")) {
+				GameObject.FindWithTag("Monster").animation.Play("fly_around_monster");
+				yield return new WaitForSeconds(1.0f);
+			} else {
+				sceneCue = SceneCue.EXPLOSION;
+			}
 		}
-		//sceneCue = SceneCue.END;
-		;
+	}
+
+	IEnumerator ExplodeCrystals() {
+		//Explode crystals from here
+		sceneCue = SceneCue.END;
 	}
 
 	[System.Serializable]
