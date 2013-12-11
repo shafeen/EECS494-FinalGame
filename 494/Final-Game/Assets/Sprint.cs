@@ -14,6 +14,7 @@ public class Sprint : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		base_speed = GetComponent<CharacterMotor>().movement.maxForwardSpeed;
+		panting.volume = 0.01f;
 		sprint_speed = base_speed + 4;
 	}
 	
