@@ -21,14 +21,8 @@ public class movePlatformScript : MonoBehaviour {
 			break;
 		case MOVINGSTATE.moving:
 			if(!transform.parent.animation.isPlaying) {
-				print("done");
 				startTime = Time.time;
 				state = MOVINGSTATE.ended;
-			}
-			break;
-		case MOVINGSTATE.ended:
-			if((Time.time - startTime) > 1) {
-				transform.parent.rigidbody.useGravity = true;
 			}
 			break;
 		}

@@ -8,6 +8,11 @@ public class EndGame : MonoBehaviour {
 	public GameObject orangecrys;
 	public GameObject whitecrys;
 	private bool scene_lock = false;
+	private DieMonsterDie monsta;
+
+	void Start() {
+		monsta = GameObject.Find("Monster").GetComponent<DieMonsterDie>();
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -27,6 +32,7 @@ public class EndGame : MonoBehaviour {
 		}
 
 		whitecrys.GetComponent<Light>().intensity = 0.5f;
+		monsta.ImDead();
 
 
 	}

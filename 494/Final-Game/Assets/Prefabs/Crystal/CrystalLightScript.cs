@@ -204,7 +204,7 @@ public class CrystalLightScript : MonoBehaviour {
 
 	void ChargeNeighbors() {
 		//Get a list of all objects within our light radius
-		Collider[] colliders = Physics.OverlapSphere(transform.position, transform.Find("Point light").GetComponent<Light>().range);
+		Collider[] colliders = Physics.OverlapSphere(transform.position, transform.GetChild(0).GetComponent<Light>().range);
 
 		//Filter by the tag "Crystal"
 		//If the neighboring crystal is dimmer than you, charge him up, but set his max brightness to a little less
