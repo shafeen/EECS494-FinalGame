@@ -31,22 +31,22 @@ public class MainMenu : MonoBehaviour {
 			PlayerPrefs.DeleteKey("level5");
 			Application.LoadLevel("BedroomLevel");
 		}
-		if(GUI.Button(new Rect(Screen.width/2-50+menuLeftMarginOffset,150+1*menuButtonSeparation + menuOptionsOffset,100,30), 
+		/*if(GUI.Button(new Rect(Screen.width/2-50+menuLeftMarginOffset,150+1*menuButtonSeparation + menuOptionsOffset,100,30), 
 		              "Settings", buttonStyle)){
 			Application.LoadLevel("Settings");
-		}
-		if(GUI.Button(new Rect(Screen.width/2-50+menuLeftMarginOffset,180+2*menuButtonSeparation + menuOptionsOffset,100,30), 
+		}*/
+		if(GUI.Button(new Rect(Screen.width/2-50+menuLeftMarginOffset,150+1*menuButtonSeparation + menuOptionsOffset,100,30), 
 		              "Quit", buttonStyle)){
 			Application.Quit();
 		}
 
 		if (PlayerPrefs.HasKey("level2")) {
-			if(GUI.Button(new Rect(Screen.width/2-50+menuLeftMarginOffset,210+3*menuButtonSeparation + menuOptionsOffset,100,30), "Resume", buttonStyle)) {
+			if(GUI.Button(new Rect(Screen.width/2-50+menuLeftMarginOffset,180+2*menuButtonSeparation + menuOptionsOffset,100,30), "Resume", buttonStyle)) {
 				Application.LoadLevel("BedroomLevel");
 			}
 		}
 
-		if(GUI.Button(new Rect(Screen.width/2-50+menuLeftMarginOffset,240+4*menuButtonSeparation + menuOptionsOffset,100,30), "Start Showcase", buttonStyle)) {
+		if(GUI.Button(new Rect(Screen.width/2-50+menuLeftMarginOffset,210+3*menuButtonSeparation + menuOptionsOffset,100,30), "Start Showcase", buttonStyle)) {
 			PlayerPrefs.SetInt("level1", 1);
 			PlayerPrefs.SetInt("level2", 1);
 			PlayerPrefs.SetInt("level3", 1);
