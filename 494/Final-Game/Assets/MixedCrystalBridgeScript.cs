@@ -27,14 +27,14 @@ public class MixedCrystalBridgeScript : MonoBehaviour {
 	}
 
 	void RaiseBridge() {
-		if (!bridge_raised) {
+		if (!bridge_raised && !transform.Find("Bridge/Bridge_beam").animation.IsPlaying("Lower_Bridge")) {
 			transform.Find("Bridge/Bridge_beam").animation.Play("Raise_Bridge");
 			bridge_raised = true;
 		}
 	}
 
 	void LowerBridge() {
-		if (bridge_raised) {
+		if (bridge_raised && !transform.Find("Bridge/Bridge_beam").animation.IsPlaying("Raise_Bridge")) {
 			transform.Find("Bridge/Bridge_beam").animation.Play("Lower_Bridge");
 			bridge_raised = false;
 		}
