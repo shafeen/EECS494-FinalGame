@@ -6,7 +6,7 @@ public class CrystalHaloScript : MonoBehaviour {
 	public float maxHaloSize = 5.0F;
 	public float minHaloSize = 0.4F;
 	void Start() {
-		pointLight = transform.parent.Find("Point light").GetComponent<Light>();
+		pointLight = transform.parent.GetChild(0).GetComponent<Light>();
 		animation["Halo"].speed = 0.0F;
 		animation.Play("Halo");
 	}
