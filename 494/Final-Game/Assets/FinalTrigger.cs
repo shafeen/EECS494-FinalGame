@@ -3,6 +3,7 @@ using System.Collections;
 
 public class FinalTrigger : MonoBehaviour {
 
+	public GameObject[] particle_emitters;
 	public TorchSet[] torchSets;
 
 	private enum SceneCue{
@@ -28,7 +29,7 @@ public class FinalTrigger : MonoBehaviour {
 			StartCoroutine("PutOutTorches");
 		} else if (sceneCue == SceneCue.GRAB_TEDDY) {
 			StartCoroutine("FlyAround");
-		} else if (sceneCue = SceneCue.EXPLOSION) {
+		} else if (sceneCue == SceneCue.EXPLOSION) {
 			StartCoroutine("ExplodeCrystals");
 		}
 	}
@@ -61,6 +62,13 @@ public class FinalTrigger : MonoBehaviour {
 
 	IEnumerator ExplodeCrystals() {
 		//Explode crystals from here
+		foreach (GameObject o in particle_emitters) {
+			o.particleSystem.enableEmission = true;
+		}
+		yield return new WaitForSeconds(2.0f);
+		foreach (GameObject o in particle_emitters) {
+			o.particleSystem.enableEmission = false;
+		}
 		sceneCue = SceneCue.END;
 	}
 
