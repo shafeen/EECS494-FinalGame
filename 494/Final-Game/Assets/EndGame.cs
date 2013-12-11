@@ -11,15 +11,15 @@ public class EndGame : MonoBehaviour {
 	private DieMonsterDie monsta;
 
 	void Start() {
-		monsta = GameObject.Find("Monster").GetComponent<DieMonsterDie>();
+//		monsta = GameObject.Find("Monster").GetComponent<DieMonsterDie>();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (!scene_lock &&
-		    greencrys.GetComponent<Light>().intensity > 3.0f &&
-		    purplecrys.GetComponent<Light>().intensity > 3.0f &&
-		    orangecrys.GetComponent<Light>().intensity > 3.0f) {
+		    greencrys.GetComponent<Light>().intensity > 2.0f &&
+		    purplecrys.GetComponent<Light>().intensity > 2.0f &&
+		    orangecrys.GetComponent<Light>().intensity > 2.0f) {
 			StartCoroutine("LightWhiteCrystal");
 			scene_lock = true;
 		}
@@ -32,8 +32,12 @@ public class EndGame : MonoBehaviour {
 		}
 
 		whitecrys.GetComponent<Light>().intensity = 0.5f;
-		monsta.ImDead();
-
-
+		//monsta.ImDead();
+		GameObject.FindWithTag("Explosion").transform.position = GameObject.FindWithTag("Monster").transform.position;
+		GameObject.FindWithTag("Teddy").transform.parent = GameObject.FindWithTag("Explosion").transform;
+		yield return new WaitForSeconds(1.5f);
+		GameObject.FindWithTag("Teddy").transform.parent = null;
+		Destroy(GameObject.FindWithTag("Explosion"));
+		Destroy(GameObject.FindWithTag("Monster"));
 	}
 }

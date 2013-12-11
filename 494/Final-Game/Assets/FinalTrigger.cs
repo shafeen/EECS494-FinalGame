@@ -3,8 +3,11 @@ using System.Collections;
 
 public class FinalTrigger : MonoBehaviour {
 
-	public GameObject[] particle_emitters;
+	public ParticleSystem[] particle_emitters;
 	public TorchSet[] torchSets;
+	public GameObject Teddy_placeholder;
+
+	private bool follow_monster = false;
 
 	private enum SceneCue{
 		WAIT,
@@ -24,6 +27,10 @@ public class FinalTrigger : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		if (GameObject.FindWithTag("Monster") && follow_monster) {
+			GameObject.FindWithTag("Teddy").transform.position = GameObject.FindWithTag("Monster").transform.position;
+		}
 		
 		if (sceneCue == SceneCue.START) {
 			StartCoroutine("PutOutTorches");
@@ -52,6 +59,7 @@ public class FinalTrigger : MonoBehaviour {
 		sceneCue = SceneCue.WAIT;
 		while (sceneCue == SceneCue.WAIT) {
 			if (GameObject.FindWithTag("Monster")) {
+				follow_monster = true;
 				GameObject.FindWithTag("Monster").animation.Play("fly_around_monster");
 				yield return new WaitForSeconds(1.0f);
 			} else {
@@ -62,14 +70,18 @@ public class FinalTrigger : MonoBehaviour {
 
 	IEnumerator ExplodeCrystals() {
 		//Explode crystals from here
-		foreach (GameObject o in particle_emitters) {
-			o.particleSystem.enableEmission = true;
+		follow_monster = false;
+		foreach (ParticleSystem o in particle_emitters) {
+			o.enableEmission = true;
 		}
-		yield return new WaitForSeconds(2.0f);
-		foreach (GameObject o in particle_emitters) {
-			o.particleSystem.enableEmission = false;
-		}
+//		yield return new WaitForSeconds(2.0f);
+//		foreach (GameObject o in particle_emitters) {
+//			o.particleSystem.enableEmission = false;
+//		}
 		sceneCue = SceneCue.END;
+		GameObject.FindWithTag("Teddy").transform.position = Teddy_placeholder.transform.position;
+		//GameObject.FindWithTag("Teddy").transform.GetChild(0).animation.Play("float_down");
+		return null;
 	}
 
 	[System.Serializable]

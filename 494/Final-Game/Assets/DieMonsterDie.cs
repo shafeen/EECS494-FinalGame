@@ -9,17 +9,15 @@ public class DieMonsterDie : MonoBehaviour {
 		explosion = GameObject.FindWithTag("Explosion");
 	}
 	public void ImDead() {
-		timer = Time.time;
 		explosion.transform.position = transform.position;
 		GameObject.FindWithTag("Teddy").transform.parent = explosion.transform;
-		gameObject.SetActive(false);
-		activated = true;
+		StartCoroutine("Explode");
 	}
-	void Update() {
-		if(activated && (Time.time - timer) > 1) {
-			GameObject.FindWithTag("Teddy").transform.parent = null;
-			Destroy(explosion);
-			Destroy(gameObject);
-		}
+
+	IEnumerator Explode() {
+		yield return new WaitForSeconds(1.5f);
+		GameObject.FindWithTag("Teddy").transform.parent = null;
+		Destroy(explosion);
+		Destroy(gameObject);
 	}
 }

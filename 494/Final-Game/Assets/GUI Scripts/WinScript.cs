@@ -8,7 +8,7 @@ public class WinScript : MonoBehaviour {
 	private bool winning;
 	private GUITexture fader;
 	void Awake () {
-		player = GameObject.FindWithTag("Player");
+		player = GameObject.FindWithTag("Flashlight");
 		fader = (GameObject.Find("ScreenFader").GetComponent<GUITexture>()as GUITexture);
 		fader.guiTexture.enabled = false;
 		fader.guiTexture.pixelInset = new Rect(-5000, -5000, 10000, 10000);
@@ -28,7 +28,7 @@ public class WinScript : MonoBehaviour {
 			}
 		}
 		if((Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0))){
-			if(Physics.Raycast(player.transform.position, fwd, out hit, 3.0f)) {
+			if(Physics.Raycast(player.transform.position, fwd, out hit, 5.0f)) {
 				if(hit.collider.gameObject == gameObject) {
 					fader.guiTexture.color = Color.clear;
 					winning = true;
