@@ -40,6 +40,15 @@ public class MainMenu : MonoBehaviour {
 			}
 		}
 
+		if(GUI.Button(new Rect(Screen.width/2-50,300+4*menuOptionsOffset + menuOptionsOffset,100,30), "Start Showcase", buttonStyle)) {
+			PlayerPrefs.SetInt("level1", 1);
+			PlayerPrefs.SetInt("level2", 1);
+			PlayerPrefs.SetInt("level3", 1);
+			PlayerPrefs.SetInt("level4", 1);
+			PlayerPrefs.SetInt("level5", 1);
+			Application.LoadLevel("BedroomLevel");
+		}
+
 	}
 	void Update() {
 		/*if(Input.GetButtonDown("A_1") || Input.GetMouseButtonDown(0)) {
